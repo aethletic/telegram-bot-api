@@ -20,6 +20,13 @@ trait Router
     private $events = [];
 
     /**
+     * Массив с ответами по умолчанию
+     *
+     * @var array
+     */
+    private $defaultAnswers;
+
+    /**
      * Массив с middlewares
      *
      * @var array
@@ -60,16 +67,57 @@ trait Router
 
         $this->beforeRun();
 
-        // Преобразумем многомерный массив во flatten и в цикле выполним события которые ранее валидировали в методе on()
-        // Если переданая функция возвращает FALSE, это значит, что нужно прервать цикл.
-        foreach (call_user_func_array('array_merge', $this->events) as $key => $event) {
-            if ($this->callFunc($event['func'], $event['args'] ?? []) === false) {
-                break;
+        if ($this->events === []) {
+            $this->executeDefaultAnswers();
+        } else {
+            // Преобразумем многомерный массив во flatten и в цикле выполним события которые ранее валидировали в методе on()
+            // Если переданая функция возвращает FALSE, это значит, что нужно прервать цикл.
+            foreach (call_user_func_array('array_merge', $this->events) as $key => $event) {
+                if ($this->callFunc($event['func'], $event['args'] ?? []) === false) {
+                    break;
+                }
             }
         }
+
         // echo PHP_EOL . "RUN END: " . $this->getExecutedTime() . PHP_EOL;
 
         $this->afterRun();
+    }
+
+    /**
+     * Выполнить функции по умолчанию. 
+     *
+     * @return void
+     */
+    private function executeDefaultAnswers()
+    {
+        if (!$this->defaultAnswers) {
+            return;
+        }
+
+        foreach ($this->defaultAnswers as $answer) {
+            foreach ($answer['data'] as $key) {
+                if (Update::has($key)) {
+                    $this->callFunc($answer['func']);
+                    return;
+                }
+            }
+        }
+    }
+
+    /**
+     * Выполнить функцию если не было поймано ни одно событие.
+     *
+     * @param string|array $data Ключ (массив значит "ИЛИ", хотя бы один ключ совпадает)
+     * @param $func
+     * @return void
+     */
+    public function default($data, $func)
+    {
+        $this->defaultAnswers[] = [
+            'data' => (array) $data,
+            'func' => $func,
+        ];
     }
 
     private function canContinueEvent()
