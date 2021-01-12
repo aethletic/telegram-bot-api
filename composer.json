@@ -1,11 +1,18 @@
 {
-    "name": "aethletic/telegram",
+    "name": "chipslays/telegram-bot-api",
+    "description": "PHP Telegram Bot API Library.",
     "type": "library",
     "license": "MIT",
+    "keywords": ["telegram", "bot", "api", "library"],
+    "authors": [
+        {
+            "name": "chipslays",
+            "email": "hello@chipslays.ru"
+        }
+    ],
     "require": {
         "aethletic/php-container": "^0.0.2",
-        "illuminate/database": "^8.21",
-        "aethletic/database": "^1.0"
+        "illuminate/database": "^8.21"
     },
     "autoload": {
         "psr-4": {
