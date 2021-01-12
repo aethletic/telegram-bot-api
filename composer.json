@@ -1,0 +1,16 @@
+{
+    "name": "aethletic/telegram",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "aethletic/php-container": "^0.0.2",
+        "illuminate/database": "^8.21",
+        "aethletic/database": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Telegram\\": "src/"
+        },
+        "files": ["src/Support/Functions.php"]
+    }
+}
