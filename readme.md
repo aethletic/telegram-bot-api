@@ -19,7 +19,7 @@ $bot->hear('Меня зовут {name}', fn ($name) => reply("Привет {$nam
 $bot->run();
 ```
 
-Большое примеров можно посмотреть [здесь](https://github.com/aethletic/telegram-bot-api/tree/master/examples).
+Больше примеров можно посмотреть [здесь](https://github.com/aethletic/telegram-bot-api/tree/master/examples).
 
 ## License
 Released under the MIT public license. See the enclosed [**`LICENSE`**](https://github.com/aethletic/telegram-bot-api/blob/master/license) for details.
