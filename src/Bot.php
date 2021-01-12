@@ -474,7 +474,7 @@ class Bot extends Container
         // Подключение компонентов
         $this->loadComponents();
 
-        return Update::get();
+        return $this;
     }
 
     /**
