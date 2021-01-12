@@ -21,5 +21,8 @@ $bot->run();
 
 Больше примеров можно посмотреть [здесь](https://github.com/aethletic/telegram-bot-api/tree/master/examples).
 
+## Документация
+Подробная документация по использованию находится [здесь]().
+
 ## License
 Released under the MIT public license. See the enclosed [**`LICENSE`**](https://github.com/aethletic/telegram-bot-api/blob/master/license) for details.
