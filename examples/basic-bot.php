@@ -1,14 +1,13 @@
 <?php
 
-use Telegram\Support\Debug;
-
 require "../vendor/autoload.php";
 
-// Авторизация
-$bot = bot('1234567890:BOT_TOKEN', require 'config.php');
-
-// Poll Webhook Telegram update
-$update = $bot->webhook(Debug::MESSAGE);
+/**
+ * Авторизация бота + получаем обновление от Telegram
+ * 
+ * @var \Telegram\Bot $bot
+ */
+$bot = bot('1234567890:BOT_TOKEN', require 'config.php')->webhook();
 
 /**
  * Универсальный обработчик Update

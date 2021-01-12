@@ -2,15 +2,15 @@
 
 require "../vendor/autoload.php";
 
-// Авторизация
-$bot = bot('1234567890:BOT_TOKEN', require 'config.php');
-
-// Poll Webhook Telegram update
-$update = $bot->webhook();
+/**
+ * Авторизация бота + получаем обновление от Telegram
+ * 
+ * @var \Telegram\Bot $bot
+ */
+$bot = bot('1234567890:BOT_TOKEN', require 'config.php')->webhook();
 
 // Add middleware
 $bot->addMiddleware('admin', function (Closure $next) {
-
     /** do something before */
 
     // Проверяем, если юзер не Админ, прерываем выполнение.
