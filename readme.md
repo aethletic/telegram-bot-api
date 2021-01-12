@@ -2,7 +2,13 @@
 
 Простая и гибкая библиотека для создания ботов Telegram на языке PHP.
 
-## Webhook бот
+## Установка
+
+```bash
+$ composer require chipslays/telegram-bot-api
+```
+
+## Пример
 ```php 
 require 'vendor/autoload.php';
 
@@ -13,13 +19,7 @@ $bot->hear('Меня зовут {name}', fn ($name) => reply("Привет {$nam
 $bot->run();
 ```
 
-## Echo бот
-```php 
-require 'vendor/autoload.php';
+Большое примеров можно посмотреть [здесь](https://github.com/aethletic/telegram-bot-api/tree/master/examples).
 
-$bot = bot('1234567890:BOT_TOKEN')->webhook();
-
-$bot->hear('', fn () => say(update('*.text')));
-
-$bot->run();
-```
+## License
+Released under the MIT public license. See the enclosed [**`LICENSE`**](https://github.com/aethletic/telegram-bot-api/blob/master/license) for details.
