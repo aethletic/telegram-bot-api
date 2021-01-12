@@ -8,7 +8,7 @@ class Keyboard
      * @var array
      */
     protected static $keyboards = [];
-    
+
     /**
      * Универсальный конструктор клавиатуры.
      * Автоматически определяет обычная клавиатура или инлайн.
@@ -73,7 +73,7 @@ class Keyboard
         if (!is_array($keyboard)) {
             $keyboard = self::$keyboards[$keyboard];
         }
-        
+
         if ($method = Bot::getInstance()->config('telegram.safe_callback')) {
             switch (strtolower($method)) {
                 case 'encode':
@@ -81,7 +81,7 @@ class Keyboard
                         $item = array_map(function ($value) {
                             if (isset($value['callback_data'])) {
                                 $value['callback_data'] = base64_encode(gzdeflate($value['callback_data'], 9));
-                            } 
+                            }
                             return $value;
                         }, $item);
                     }

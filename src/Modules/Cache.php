@@ -20,7 +20,7 @@ class Cache
                     return false;
                 }
 
-                $cache = new \Memcached();
+                $cache = new \Memcached;
                 $cache->addServer($config[$driver]['host'], $config[$driver]['port']);
 
                 break;
@@ -30,7 +30,7 @@ class Cache
                     return false;
                 }
 
-                $cache = new \Redis();
+                $cache = new \Redis;
                 $cache->connect($config[$driver]['host'], $config[$driver]['port']);
 
                 break;

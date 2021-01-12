@@ -52,6 +52,6 @@ trait Common
      */
     public function getSystemLoad()
     {
-      return sys_getloadavg();
+        return sys_getloadavg();
     }
 }

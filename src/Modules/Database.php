@@ -13,7 +13,7 @@ class Database
     public static function connect()
     {
         $bot = Bot::getInstance();
-        
+
         $driver = $bot->config('database.driver');
         $config = $bot->config('database.' . $driver);
         $config['driver'] = $driver;
@@ -30,7 +30,7 @@ class Database
         return self::$db;
     }
 
-    public static function table(string $table) 
+    public static function table(string $table)
     {
         return self::$db->table($table);
     }

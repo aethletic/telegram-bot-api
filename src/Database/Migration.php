@@ -47,7 +47,7 @@ class Migration
                 $table->mediumText('value')->nullable();
             });
         }
-        
+
         if (!$schema->hasTable('stats_users')) {
             $schema->create('stats_users', function ($table) {
                 $table->id();
@@ -56,7 +56,7 @@ class Migration
             });
         }
 
-        
+
         if (!$schema->hasTable('stats_messages')) {
             $schema->create('stats_messages', function ($table) {
                 $table->id();
@@ -64,7 +64,7 @@ class Migration
                 $table->integer('count')->nullable();
             });
         }
-        
+
         if (!$schema->hasTable('messages')) {
             $schema->create('messages', function ($table) {
                 $table->id();
@@ -84,7 +84,7 @@ class Migration
     public static function down()
     {
         $schema = Bot::getInstance()->db()->schema();
-        
+
         $schema->dropIfExists('users');
         $schema->dropIfExists('store');
         $schema->dropIfExists('stats_users');

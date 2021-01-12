@@ -6,7 +6,7 @@ use Telegram\Update;
 
 trait Aliases
 {
-     /**
+    /**
      * @var Keyboard
      */
     private $keyboard;

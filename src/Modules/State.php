@@ -67,7 +67,7 @@ class State
     public static function setById($userId, $name = null, $data = null)
     {
         return Bot::getInstance()->store()->set(self::userStateFile($userId), [
-            'name' => $name, 
+            'name' => $name,
             'data' => $data
         ]);
     }
@@ -85,15 +85,15 @@ class State
     public static function setName($name)
     {
         return Bot::getInstance()->store()->set(self::userStateFile(self::$currentUserId), [
-            'name' => $name, 
-            'data' => self::$data, 
+            'name' => $name,
+            'data' => self::$data,
         ]);
     }
 
     public static function setData($data)
     {
         return Bot::getInstance()->store()->set(self::userStateFile(self::$currentUserId), [
-            'name' => self::$name, 
+            'name' => self::$name,
             'data' => $data,
         ]);
     }

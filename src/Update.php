@@ -745,12 +745,12 @@ class Update
     {
         return self::get('*.chat.type') == 'group';
     }
-    
+
     public static function isChannel()
     {
         return self::get('*.chat.type') == 'channel';
     }
-    
+
     public static function isPrivate()
     {
         return self::get('*.chat.type') == 'private';

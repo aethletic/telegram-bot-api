@@ -74,7 +74,7 @@ trait Aliases
 
         return !is_null($response) ? $response->get('ok') : false;
     }
-    
+
     public function saveFile($fileUrl, $savePath)
     {
         $extension = strpos(basename($fileUrl), '.') !== false ? end(explode('.', basename($fileUrl))) : '';
@@ -92,10 +92,10 @@ trait Aliases
     public function sendJson()
     {
         if (!Update::is()) {
-          return false;
+            return false;
         }
 
-        return $this->say('<code>'.json_encode($this->update->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE).'</code>');
+        return $this->say('<code>' . json_encode($this->update->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</code>');
     }
 
     /**

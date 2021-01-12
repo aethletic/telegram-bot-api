@@ -141,9 +141,9 @@ class Helpers
      * @param string $path
      * @return \CURLFile|bool
      */
-    public static function upload(string $path = null)
+    public static function upload(string $path = null, string $mimeType = null, string $postName = null)
     {
-        return $path ? new \CURLFile($path) : false;
+        return $path ? new \CURLFile($path, $mimeType, $postName) : false;
     }
 
     /**

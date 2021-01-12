@@ -43,7 +43,7 @@ class Store
      */
     public static function set($key, $value, bool $personal = false)
     {
-        $key = $personal ? self::$personalId.$key : $key;
+        $key = $personal ? self::$personalId . $key : $key;
 
         switch (self::$driver) {
             case 'file':
@@ -62,7 +62,7 @@ class Store
 
     public static function get($key, $default = null, $personal = false)
     {
-        $key = $personal ? self::$personalId.$key : $key;
+        $key = $personal ? self::$personalId . $key : $key;
 
         switch (self::$driver) {
             case 'file':
@@ -81,9 +81,9 @@ class Store
 
     public static function has($key, $personal = false)
     {
-        $key = $personal ? self::$personalId.$key : $key;
+        $key = $personal ? self::$personalId . $key : $key;
 
-        
+
         switch (self::$driver) {
             case 'file':
                 return file_exists(self::$dir . '/' . md5($key));
@@ -101,7 +101,7 @@ class Store
 
     public static function delete($key, $personal = false)
     {
-        $key = $personal ? self::$personalId.$key : $key;
+        $key = $personal ? self::$personalId . $key : $key;
 
         switch (self::$driver) {
             case 'file':

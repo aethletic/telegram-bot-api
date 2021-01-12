@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 namespace Telegram\Support;
 
-class Debug 
+class Debug
 {
     public const MESSAGE = '{
         "update_id": 31348350,
