@@ -9,7 +9,7 @@
     </exclude>
   </coverage>
   <testsuites>
-    <testsuite name="Bot Test Suite">
+    <testsuite name="Test Suite">
       <directory>./tests/</directory>
     </testsuite>
   </testsuites>
