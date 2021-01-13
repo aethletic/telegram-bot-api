@@ -35,13 +35,13 @@ trait Router
 
     private $canContinueEvent = true;
 
-    private function beforeRun()
+    private function beforeRun(): void
     {
         // code...
         // echo PHP_EOL . "BEFORE: " . $this->getExecutedTime() . PHP_EOL;
     }
 
-    private function afterRun()
+    private function afterRun(): void
     {
         // Записываем входящий апдейт в лог файл
         if ($this->config('log.enable') && $this->config('log.auto')) {
@@ -120,7 +120,7 @@ trait Router
         ];
     }
 
-    private function canContinueEvent()
+    private function canContinueEvent(): bool
     {
         if (!$this->canContinueEvent) {
             $this->canContinueEvent = true;
@@ -230,9 +230,10 @@ trait Router
      * @param string|array $data
      * @param $func Обработчик события, чтобы прервать цепочку выполнения, необходимо вернуть FALSE.
      * @param integer $sort Сортировка, чем меньше число, тем функция выполнится раньше.
-     * @return void
+     *
+     * @return \Telegram\Bot
      */
-    public function onMessage($data, $func, $sort = null)
+    public function onMessage($data, $func, $sort = null): \Telegram\Bot
     {
         if (!Update::isMessage() || Update::isCommand()) {
             return $this;
@@ -253,7 +254,7 @@ trait Router
         return $this->onMessage($data, $func, $sort);
     }
 
-    public function onEditedMessage($data, $func, $sort = null)
+    public function onEditedMessage($data, $func, $sort = null): \Telegram\Bot
     {
         if (!Update::isEditedMessage() || Update::isCommand()) {
             return $this;
@@ -272,7 +273,8 @@ trait Router
      * @param string|array $data
      * @param $func Обработчик события, чтобы прервать цепочку выполнения, необходимо вернуть FALSE.
      * @param integer $sort Сортировка, чем меньше число, тем функция выполнится раньше.
-     * @return void
+     *
+     * @return Bot
      */
     public function onCommand($data, $func, $sort = null)
     {
@@ -301,7 +303,8 @@ trait Router
      * @param string|array $data
      * @param $func Обработчик события, чтобы прервать цепочку выполнения, необходимо вернуть FALSE.
      * @param integer $sort Сортировка, чем меньше число, тем функция выполнится раньше.
-     * @return void
+     *
+     * @return Bot
      */
     public function onCallback($data, $func, $sort = null)
     {
@@ -356,7 +359,8 @@ trait Router
      * @param string|array $data
      * @param $func Обработчик события, чтобы прервать цепочку выполнения, необходимо вернуть FALSE.
      * @param integer $sort Сортировка, чем меньше число, тем функция выполнится раньше.
-     * @return void
+     *
+     * @return Bot
      */
     public function onInline($data, $func, $sort = null)
     {
@@ -423,7 +427,7 @@ trait Router
         }
     }
 
-    public function addMiddleware(string $name, $func)
+    public function addMiddleware(string $name, $func): void
     {
         $this->middlewares[$name] = $func;
     }
@@ -551,6 +555,9 @@ trait Router
         return false;
     }
 
+    /**
+     * @return void
+     */
     public function onMaxSystemLoad($func, $sort = null)
     {
         $load = $this->getSystemLoad();
@@ -564,6 +571,9 @@ trait Router
         }
     }
 
+    /**
+     * @return void
+     */
     public function onFlood($func, $sort = null)
     {
         if (!$this->user()->isFlood()) {
@@ -578,6 +588,9 @@ trait Router
         ];
     }
 
+    /**
+     * @return void
+     */
     public function onAdmin($func, $sort = null)
     {
         if (!$this->user()->isAdmin()) {
@@ -591,6 +604,9 @@ trait Router
         ];
     }
 
+    /**
+     * @return void
+     */
     public function onFirstTime($func, $sort = null)
     {
         if (!$this->user()->firstTime()) {
@@ -604,6 +620,9 @@ trait Router
         ];
     }
 
+    /**
+     * @return void
+     */
     public function onBan($func, $sort = null)
     {
         if (!$this->user()->isBanned()) {
@@ -618,6 +637,9 @@ trait Router
         ];
     }
 
+    /**
+     * @return void
+     */
     public function onNewVersion($func, $sort = null)
     {
         if (!$this->user()->newVersion()) {

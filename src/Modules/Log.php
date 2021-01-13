@@ -6,7 +6,12 @@ class Log
 {
     private static $dir;
 
-    public static function initialize($dir)
+    /**
+     * @param string $dir
+     *
+     * @return false|null
+     */
+    public static function initialize(string $dir)
     {
         if (!$dir) {
             return false;
@@ -19,6 +24,9 @@ class Log
         self::$dir = rtrim($dir, '/');
     }
 
+    /**
+     * @return void
+     */
     public static function write($data = false, $type = 'auto', $postfix = 'bot')
     {
         if (!$data) {

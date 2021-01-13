@@ -18,7 +18,8 @@ trait Request
      * @param string $method Название метода.
      * @param array $params Массив параметров, где ключ - это навание параметра, а значение - это значение параметра.
      * @param boolean $isFile True если передается файл, False для обычных запросов.
-     * @return void
+     *
+     * @return Collection
      */
     public function request(string $method, array $params = [], bool $isFile = false)
     {
@@ -46,9 +47,10 @@ trait Request
      * @param array $params
      * @param array|string $keyboard
      * @param array $extra
-     * @return void
+     *
+     * @return array
      */
-    private function buildRequestParams($params = [], $keyboard = null, $extra = [])
+    private function buildRequestParams($params = [], $keyboard = null, $extra = []): array
     {
         if ($keyboard) {
             $params['reply_markup'] = is_array($keyboard) ? $this->keyboard($keyboard) : $keyboard;

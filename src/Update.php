@@ -35,11 +35,13 @@ class Update
 
     /**
      * Установить апдейт.
-     * 
+     *
      * @param string|array|null
+     * @param array|null|string $update
+     *
      * @return void
      */
-    public static function set($update)
+    public static function set($update): void
     {
         if ($update) {
             $update = is_array($update) ? $update : json_decode($update, true);
@@ -65,8 +67,8 @@ class Update
 
     /**
      * Получить массив входящего обновления.
-     * 
-     * @return array|null
+     *
+     * @return array|false
      */
     public static function toArray()
     {
@@ -85,6 +87,8 @@ class Update
 
     /**
      * Проверка наличия ключа (dot notation)
+     *
+     * @param int|string $key
      * 
      * @return boolean
      */
@@ -118,7 +122,7 @@ class Update
         self::$commandTags = $tags;
     }
 
-    public static function isMessage()
+    public static function isMessage(): bool
     {
         return self::has('message');
     }
@@ -131,7 +135,7 @@ class Update
         return new Collection(self::get('message'));
     }
 
-    public static function isEditedMessage()
+    public static function isEditedMessage(): bool
     {
         return self::has('edited_message');
     }
@@ -144,7 +148,7 @@ class Update
         return new Collection(self::get('edited_message'));
     }
 
-    public static function isChannelPost()
+    public static function isChannelPost(): bool
     {
         return self::has('channel_post');
     }
@@ -157,7 +161,7 @@ class Update
         return new Collection(self::get('channel_post'));
     }
 
-    public static function isEditedChannelPost()
+    public static function isEditedChannelPost(): bool
     {
         return self::has('edited_channel_post');
     }
@@ -170,7 +174,7 @@ class Update
         return new Collection(self::get('edited_channel_post'));
     }
 
-    public static function isInlineQuery()
+    public static function isInlineQuery(): bool
     {
         return self::has('inline_query');
     }
@@ -183,7 +187,7 @@ class Update
         return new Collection(self::get('inline_query'));
     }
 
-    public static function isChosenInlineResult()
+    public static function isChosenInlineResult(): bool
     {
         return self::has('chosen_inline_result');
     }
@@ -196,7 +200,7 @@ class Update
         return new Collection(self::get('chosen_inline_result'));
     }
 
-    public static function isCallbackQuery()
+    public static function isCallbackQuery(): bool
     {
         return self::has('callback_query');
     }
@@ -209,7 +213,7 @@ class Update
         return new Collection(self::get('callback_query'));
     }
 
-    public static function isShippingQuery()
+    public static function isShippingQuery(): bool
     {
         return self::has('shipping_query');
     }
@@ -222,7 +226,7 @@ class Update
         return new Collection(self::get('shipping_query'));
     }
 
-    public static function isPreCheckoutQuery()
+    public static function isPreCheckoutQuery(): bool
     {
         return self::has('pre_checkout_query');
     }
@@ -235,7 +239,7 @@ class Update
         return new Collection(self::get('pre_checkout_query'));
     }
 
-    public static function isPoll()
+    public static function isPoll(): bool
     {
         return self::has('poll');
     }
@@ -248,7 +252,7 @@ class Update
         return new Collection(self::get('poll'));
     }
 
-    public static function isPollAnswer()
+    public static function isPollAnswer(): bool
     {
         return self::has('poll_answer');
     }
@@ -261,7 +265,7 @@ class Update
         return new Collection(self::get('poll_answer'));
     }
 
-    public static function isCommand()
+    public static function isCommand(): bool
     {
         if (!self::isMessage() && !self::isEditedMessage()) {
             return false;
@@ -275,19 +279,19 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getCommand()
     {
         return self::get('*.text');
     }
 
-    public static function isBot()
+    public static function isBot(): bool
     {
         return self::has('*.from.is_bot');
     }
 
-    public static function isSticker()
+    public static function isSticker(): bool
     {
         return self::has('*.sticker');
     }
@@ -300,7 +304,7 @@ class Update
         return new Collection(self::get('*.sticker'));
     }
 
-    public static function isVoice()
+    public static function isVoice(): bool
     {
         return self::has('*.voice');
     }
@@ -313,7 +317,7 @@ class Update
         return new Collection(self::get('*.voice'));
     }
 
-    public static function isAnimation()
+    public static function isAnimation(): bool
     {
         return self::has('*.animation');
     }
@@ -326,7 +330,7 @@ class Update
         return new Collection(self::get('*.animation'));
     }
 
-    public static function isDocument()
+    public static function isDocument(): bool
     {
         return self::has('*.document');
     }
@@ -339,7 +343,7 @@ class Update
         return new Collection(self::get('*.document'));
     }
 
-    public static function isAudio()
+    public static function isAudio(): bool
     {
         return self::has('*.audio');
     }
@@ -352,7 +356,7 @@ class Update
         return new Collection(self::get('*.audio'));
     }
 
-    public static function isPhoto()
+    public static function isPhoto(): bool
     {
         return self::has('*.photo');
     }
@@ -365,7 +369,7 @@ class Update
         return new Collection(self::get('*.photo'));
     }
 
-    public static function isVideo()
+    public static function isVideo(): bool
     {
         return self::has('*.video');
     }
@@ -378,7 +382,7 @@ class Update
         return new Collection(self::get('*.video'));
     }
 
-    public static function isVideoNote()
+    public static function isVideoNote(): bool
     {
         return self::has('*.video_note');
     }
@@ -391,7 +395,7 @@ class Update
         return new Collection(self::get('*.video_note'));
     }
 
-    public static function isContact()
+    public static function isContact(): bool
     {
         return self::has('*.contact');
     }
@@ -404,7 +408,7 @@ class Update
         return new Collection(self::get('*.contact'));
     }
 
-    public static function isLocation()
+    public static function isLocation(): bool
     {
         return self::has('*.location');
     }
@@ -417,7 +421,7 @@ class Update
         return new Collection(self::get('*.location'));
     }
 
-    public static function isVenue()
+    public static function isVenue(): bool
     {
         return self::has('*.venue');
     }
@@ -430,7 +434,7 @@ class Update
         return new Collection(self::get('*.venue'));
     }
 
-    public static function isDice()
+    public static function isDice(): bool
     {
         return self::has('*.dice');
     }
@@ -443,7 +447,7 @@ class Update
         return new Collection(self::get('*.dice'));
     }
 
-    public static function isNewChatMembers()
+    public static function isNewChatMembers(): bool
     {
         return self::has('*.new_chat_members');
     }
@@ -456,7 +460,7 @@ class Update
         return new Collection(self::get('*.new_chat_members'));
     }
 
-    public static function isLeftChatMember()
+    public static function isLeftChatMember(): bool
     {
         return self::has('*.left_chat_member');
     }
@@ -469,20 +473,20 @@ class Update
         return new Collection(self::get('*.left_chat_member'));
     }
 
-    public static function isNewChatTitle()
+    public static function isNewChatTitle(): bool
     {
         return self::has('*.new_chat_title');
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getNewChatTitle()
     {
         return self::get('*.new_chat_title');
     }
 
-    public static function isNewChatPhoto()
+    public static function isNewChatPhoto(): bool
     {
         return self::has('*.new_chat_photo');
     }
@@ -495,43 +499,43 @@ class Update
         return new Collection(self::get('*.new_chat_photo'));
     }
 
-    public static function isDeleteChatPhoto()
+    public static function isDeleteChatPhoto(): bool
     {
         return self::has('*.delete_chat_photo');
     }
 
-    public static function isChannelChatCreated()
+    public static function isChannelChatCreated(): bool
     {
         return self::has('*.channel_chat_created');
     }
 
-    public static function isMigrateToChatId()
+    public static function isMigrateToChatId(): bool
     {
         return self::has('*.migrate_to_chat_id');
     }
 
     /**
-     * @return int|null
+     * @return int|string
      */
     public static function getMigrateToChatId()
     {
         return self::get('*.migrate_to_chat_id');
     }
 
-    public static function isMigrateFromChatId()
+    public static function isMigrateFromChatId(): bool
     {
         return self::has('*.migrate_from_chat_id');
     }
 
     /**
-     * @return int|null
+     * @return int|string
      */
     public static function getMigrateFromChatId()
     {
         return self::get('*.migrate_from_chat_id');
     }
 
-    public static function isPinnedMessage()
+    public static function isPinnedMessage(): bool
     {
         return self::has('*.pinned_message');
     }
@@ -544,7 +548,7 @@ class Update
         return new Collection(self::get('*.pinned_message'));
     }
 
-    public static function isInvoice()
+    public static function isInvoice(): bool
     {
         return self::has('*.invoice');
     }
@@ -557,7 +561,7 @@ class Update
         return new Collection(self::get('*.invoice'));
     }
 
-    public static function isSucessfulPayment()
+    public static function isSucessfulPayment(): bool
     {
         return self::has('*.successful_payment');
     }
@@ -570,20 +574,20 @@ class Update
         return new Collection(self::get('*.successful_payment'));
     }
 
-    public static function isConnectedWebsite()
+    public static function isConnectedWebsite(): bool
     {
         return self::has('*.connected_website');
     }
 
     /**
-     * @return string|null
+     * @return Collection|int|string
      */
     public static function getConnectedWebsite()
     {
         return self::get('*.connected_website');
     }
 
-    public static function isPassportData()
+    public static function isPassportData(): bool
     {
         return self::has('*.passport_data');
     }
@@ -596,7 +600,7 @@ class Update
         return new Collection(self::get('*.passport_data'));
     }
 
-    public static function isReplyMarkup()
+    public static function isReplyMarkup(): bool
     {
         return self::has('*.reply_markup');
     }
@@ -609,7 +613,7 @@ class Update
         return new Collection(self::get('*.reply_markup'));
     }
 
-    public static function isReply()
+    public static function isReply(): bool
     {
         return self::has('*.reply_to_message');
     }
@@ -638,13 +642,13 @@ class Update
         return new Collection(self::get('*.chat'));
     }
 
-    public static function isCaption()
+    public static function isCaption(): bool
     {
         return self::has('*.caption');
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getCaption()
     {
@@ -652,7 +656,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getText()
     {
@@ -660,7 +664,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getTextOrCaption()
     {
@@ -668,7 +672,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getData()
     {
@@ -676,7 +680,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getQuery()
     {
@@ -684,7 +688,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getId()
     {
@@ -692,7 +696,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getMessageId()
     {
@@ -700,7 +704,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getCallbackId()
     {
@@ -708,7 +712,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getPollId()
     {
@@ -716,7 +720,7 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getPollAnswerId()
     {
@@ -724,34 +728,34 @@ class Update
     }
 
     /**
-     * @return string|null
+     * @return int|string
      */
     public static function getInlineId()
     {
         return self::get('inline_query.id');
     }
 
-    public static function isForward()
+    public static function isForward(): bool
     {
         return self::has('*.forward_date') || self::has('*.forward_from');
     }
 
-    public static function isSuperGroup()
+    public static function isSuperGroup(): bool
     {
         return self::get('*.chat.type') == 'supergroup';
     }
 
-    public static function isGroup()
+    public static function isGroup(): bool
     {
         return self::get('*.chat.type') == 'group';
     }
 
-    public static function isChannel()
+    public static function isChannel(): bool
     {
         return self::get('*.chat.type') == 'channel';
     }
 
-    public static function isPrivate()
+    public static function isPrivate(): bool
     {
         return self::get('*.chat.type') == 'private';
     }

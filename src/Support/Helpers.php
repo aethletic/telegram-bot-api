@@ -9,14 +9,15 @@ class Helpers
 {
     /**
      * Перемешивает текст в {{двойных фигурных скобках}}.
-     * 
+     *
      * Например: shuffle('Сегодня {{лето|осень|зима|весна}}')
      * Вернет: случайное слово из фигурных скобок, например, "осень".
      *
      * @param [type] $message
-     * @return void
+     *
+     * @return string
      */
-    public static function shuffle(string $message)
+    public static function shuffle(string $message): string
     {
         preg_match_all('/{{(.+?)}}/mi', $message, $sentences);
 
@@ -96,9 +97,10 @@ class Helpers
 
     /**
      * Проверить наличие RTL символов (Arabic, Persian, Hebrew)
-     * 
-     * @param	string	$string
-     * @return	bool
+     *
+     * @param string $string
+     *
+     * @return bool
      */
     public static function isRtl($string)
     {
@@ -127,6 +129,7 @@ class Helpers
      * Например: 2020-02-02 00:00:00
      *
      * @param boolean $timestamp
+     *
      * @return string
      */
     public static function midnight($timestamp = null)

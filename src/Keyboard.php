@@ -50,7 +50,8 @@ class Keyboard
      * Спрятать клавиатуру.
      *
      * @param boolean $selective True - персольная клавиатура для юзера, False - для всех юзеров
-     * @return void
+     *
+     * @return string
      */
     public static function hide($selective = false)
     {

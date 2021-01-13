@@ -23,13 +23,13 @@ class State
     private static $bot;
 
     /**
-     * @var Illuminate\Database\Capsule\Manager
+     * @var \Illuminate\Database\Capsule\Manager
      */
     private static $db;
 
     private static $driver;
 
-    public static function initialize()
+    public static function initialize(): void
     {
         self::$bot = Bot::getInstance();
 
@@ -49,17 +49,20 @@ class State
         return self::$currentUserId ? self::getById(self::$currentUserId) : false;
     }
 
+    /**
+     * @param int|string $userId
+     */
     public static function getById($userId)
     {
         return Bot::getInstance()->store()->get(self::userStateFile($userId));
     }
 
-    public static function set($name = null, $data = null)
+    public static function set($name = null, $data = null): void
     {
         self::setById(self::$currentUserId, $name, $data);
     }
 
-    public static function save()
+    public static function save(): void
     {
         self::setById(self::$currentUserId, self::$name, self::$data);
     }
@@ -72,7 +75,7 @@ class State
         ]);
     }
 
-    public static function clear()
+    public static function clear(): void
     {
         self::clearById(self::$currentUserId);
     }
@@ -98,7 +101,7 @@ class State
         ]);
     }
 
-    private static function userStateFile($userId)
+    private static function userStateFile($userId): string
     {
         return "{$userId}__USER__STATE__ID";
     }

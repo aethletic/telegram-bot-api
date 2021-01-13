@@ -21,9 +21,10 @@ trait Common
      * Если $password корректный, вернет True, иначе False.
      *
      * @param [type] $password
-     * @return void
+     *
+     * @return bool
      */
-    public function adminAuth($password)
+    public function adminAuth($password): bool
     {
         if (!$this->user()->isAdmin()) {
             return false;
@@ -48,9 +49,9 @@ trait Common
     /**
      * Получает среднюю загрузку системы.
      *
-     * @return void
+     * @return array
      */
-    public function getSystemLoad()
+    public function getSystemLoad(): array
     {
         return sys_getloadavg();
     }

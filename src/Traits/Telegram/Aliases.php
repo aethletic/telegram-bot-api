@@ -75,9 +75,14 @@ trait Aliases
         return !is_null($response) ? $response->get('ok') : false;
     }
 
-    public function saveFile($fileUrl, $savePath)
-    {
-        $extension = strpos(basename($fileUrl), '.') !== false ? end(explode('.', basename($fileUrl))) : '';
+    public function saveFile($fileUrl, $savePath): string
+    {   
+        $extension = '';
+        if (strpos(basename($fileUrl), '.') !== false) {
+            $filename = explode('.', basename($fileUrl));
+            $extension = end($filename);
+        }
+        
         $savePath = str_ireplace(['{ext}', '{extension}', '{file_ext}'], $extension, $savePath);
         $savePath = str_ireplace(['{base}', '{basename}', '{base_name}', '{name}'], basename($fileUrl), $savePath);
         $savePath = str_ireplace(['{time}'], time(), $savePath);

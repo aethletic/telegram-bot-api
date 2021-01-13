@@ -13,7 +13,7 @@ class Store
     private static $bot;
     private static $personalId;
 
-    public static function initialize()
+    public static function initialize(): void
     {
         self::$bot = Bot::getInstance();
         self::$driver = strtolower(self::$bot->config('store.driver'));
@@ -99,7 +99,7 @@ class Store
         }
     }
 
-    public static function delete($key, $personal = false)
+    public static function delete($key, $personal = false): void
     {
         $key = $personal ? self::$personalId . $key : $key;
 

@@ -23,6 +23,9 @@ class User
     private static $newVersion = false;
     private static $floodTime;
 
+    /**
+     * @return void
+     */
     public static function initialize()
     {
         self::$bot = Bot::getInstance();
@@ -122,7 +125,7 @@ class User
         self::$data = self::getById(self::$userId);
     }
 
-    public static function isFlood()
+    public static function isFlood(): bool
     {
         $timeout = self::$bot->config('user.flood_time');
         $diffMessageTime = time() - self::$data['last_message'];
@@ -149,12 +152,12 @@ class User
         return self::$newVersion;
     }
 
-    public static function isBanned()
+    public static function isBanned(): bool
     {
         return self::$data['banned'] == 1;
     }
 
-    public static function isAdmin()
+    public static function isAdmin(): bool
     {
         $adminList = (array) self::$bot->config('admin.list', []);
         if (array_key_exists(Update::get('*.from.id'), $adminList) || array_key_exists(Update::get('*.from.id'), $adminList)) {
@@ -163,7 +166,7 @@ class User
         return false;
     }
 
-    public static function save()
+    public static function save(): void
     {
         self::update(self::$data);
     }
@@ -178,6 +181,9 @@ class User
         return self::updateById(self::$userId, $data);
     }
 
+    /**
+     * @param int|string $userId
+     */
     public static function getById($userId = null)
     {
         if (!$userId) {
@@ -226,6 +232,9 @@ class User
         }
     }
 
+    /**
+     * @param int|string $userId
+     */
     public static function exists($userId = null)
     {
         if (!$userId) {
@@ -260,13 +269,13 @@ class User
         self::$data[$key] = $value;
     }
 
-    private static function merge($data)
+    private static function merge(array $data): array
     {
         self::$data = array_merge(self::$data, $data);
         return self::$data;
     }
 
-    private static function diffBotVersion()
+    private static function diffBotVersion(): void
     {
         $userVersion = self::get('version');
         $currentVersion = self::$bot->config('bot.version');
@@ -278,7 +287,7 @@ class User
         }
     }
 
-    private static function filename($userId)
+    private static function filename($userId): string
     {
         return "{$userId}__USER__DATA_ID";
     }

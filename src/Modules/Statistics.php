@@ -8,6 +8,9 @@ use Telegram\Support\Helpers;
 
 class Statistics
 {
+    /**
+     * @return void
+     */
     public static function collect()
     {
         $bot = Bot::getInstance();

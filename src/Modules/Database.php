@@ -10,7 +10,7 @@ class Database
 {
     private static $db;
 
-    public static function connect()
+    public static function connect(): Capsule
     {
         $bot = Bot::getInstance();
 
