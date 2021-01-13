@@ -1,6 +1,6 @@
-# WIP: PHP Telegram Bot API
+<h1 align="center">WIP: PHP Telegram Bot API</h1>
 
-Простая и гибкая библиотека для создания ботов [Telegram](https://telegram.org/) на языке PHP.
+<p align="center">Простая и гибкая библиотека для создания ботов <a href="https://telegram.org/">Telegram</a> на языке PHP.</p>
 
 ## 👷 Установка
 
