@@ -29,7 +29,7 @@ class Debug
     }';
 
     public const CALLBACK_QUERY = '{
-        "update_id": 31348301,
+        "update_id": 31348350,
         "callback_query": {
             "id": "5881482190582191249",
             "from": {
