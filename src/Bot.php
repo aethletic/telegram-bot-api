@@ -3,6 +3,7 @@
 namespace Telegram;
 
 use Container\Container;
+use Chipslays\Collection\Collection;
 use Telegram\Traits\Telegram\Aliases as TelegramAliases;
 use Telegram\Traits\Telegram\Methods;
 use Telegram\Traits\Telegram\Replies;
@@ -10,7 +11,6 @@ use Telegram\Traits\Router;
 use Telegram\Traits\Request;
 use Telegram\Traits\Aliases as BotAliases;
 use Telegram\Traits\Common;
-use Telegram\Support\Collection;
 use Telegram\Support\Helpers;
 use Telegram\Modules\Store;
 use Telegram\Modules\Log;

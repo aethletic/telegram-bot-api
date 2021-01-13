@@ -3,7 +3,7 @@
 namespace Telegram\Traits;
 
 use Telegram\Update;
-use Telegram\Support\Collection;
+use Chipslays\Collection\Collection;
 
 trait Request
 {

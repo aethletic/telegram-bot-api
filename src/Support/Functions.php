@@ -4,6 +4,7 @@ use Telegram\Bot;
 use Telegram\Update;
 use Telegram\Keyboard;
 use Telegram\Support\Helpers;
+use Chipslays\Collection\Collection;
 
 if (!function_exists('keyboard')) {
     /**

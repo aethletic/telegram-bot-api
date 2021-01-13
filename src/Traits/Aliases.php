@@ -3,6 +3,7 @@
 namespace Telegram\Traits;
 
 use Telegram\Update;
+use Chipslays\Collection\Collection;
 
 trait Aliases
 {

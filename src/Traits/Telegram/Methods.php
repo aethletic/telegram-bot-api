@@ -2,8 +2,6 @@
 
 namespace Telegram\Traits\Telegram;
 
-use Telegram\Support\Helpers;
-
 trait Methods
 {
     public function setWebhook($url = null, $extra = [])

@@ -4,7 +4,7 @@ namespace Telegram\Modules;
 
 use Telegram\Bot;
 use Telegram\Update;
-use Telegram\Support\Collection;
+use Chipslays\Collection\Collection;
 
 class User
 {

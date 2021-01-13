@@ -2,7 +2,7 @@
 
 namespace Telegram;
 
-use Telegram\Support\Collection;
+use Chipslays\Collection\Collection;
 
 class Update
 {
