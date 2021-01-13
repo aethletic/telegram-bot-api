@@ -1,4 +1,4 @@
-<h1 align="center">WIP: PHP Telegram Bot API</h1>
+<h1 align="center"><b>WIP: PHP Telegram Bot API</b></h1>
 
 <p align="center">Простая и гибкая библиотека для создания ботов <a href="https://telegram.org/">Telegram</a> на языке PHP.</p>
 
