@@ -11,6 +11,7 @@
         }
     ],
     "require": {
+        "chipslays/collection": "^1.0",
         "chipslays/php-container": "^0.0.2",
         "illuminate/database": "^8.21"
     },
