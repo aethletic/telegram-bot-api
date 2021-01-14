@@ -13,7 +13,8 @@
     "require": {
         "chipslays/collection": "^1.0",
         "chipslays/php-container": "^0.0.2",
-        "illuminate/database": "^8.21"
+        "illuminate/database": "^8.21",
+        "chipslays/clify": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -24,5 +25,6 @@
     "require-dev": {
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.3"
-    }
+    },
+    "bin": ["bin/bot"]
 }

@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php 
+
+use Clify\Cli;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$cli = new Cli;
+
+$cli->out("{cyan}----------------------------
+{cyan}| {light_cyan}PHP Telegram Bot API CLI {cyan}|
+----------------------------");
+
+$args = $cli->getArgs();
+
+if (array_key_exists('h', $args) || array_key_exists('help', $args)) {
+    $cli->out(PHP_EOL . "{cyan}General:{reset}
+> {light_cyan}create:config{reset}  - Create a Bot configuration file.
+
+{cyan}Webhook:{reset}
+> {light_cyan}webhook:set{reset}    - Set a webhook for handle Telegram updates {yellow}(need a config file->bot.token){reset}.
+> {light_cyan}webhook:delete{reset} - Delete webhook handler {yellow}(need a config file->bot.token){reset}.
+> {light_cyan}webhook:info{reset}   - Get current webhook status {yellow}(need a config file->bot.token){reset}.
+
+{cyan}Migrations:{reset}
+> {light_cyan}migration:up{reset}   - Create Bot tables in database {yellow}(need a config file->database.enable){reset}.
+> {light_cyan}migration:down{reset} - Drop Bot tables from database {yellow}(need a config file->database.enable){reset}.");
+
+    exit;
+}
