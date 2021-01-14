@@ -17,49 +17,55 @@ class Statistics
         $date = Helpers::midnight();
 
         // messages stats
-        $isNewDate = $bot->db('stats_messages')->where('date', $date)->count() == 0;
-        if ($isNewDate) {
-            $bot->db('stats_messages')->insert([
-                'date' => $date,
-                'count' => 1,
-            ]);
-        } else {
-            $bot->db('stats_messages')->where('date', $date)->increment('count', 1);
-        }
-
-        // new users stats
-        $isNewDate = $bot->db()->table('stats_users')->where('date', $date)->count() == 0;
-        if ($bot->user()->firstTime()) {
+        if ($bot->config('statistics.messages')) {
+            $isNewDate = $bot->db('stats_messages')->where('date', $date)->count() == 0;
             if ($isNewDate) {
-                $bot->db('stats_users')->insert([
+                $bot->db('stats_messages')->insert([
                     'date' => $date,
                     'count' => 1,
                 ]);
             } else {
-                $bot->db('stats_users')->where('date', $date)->increment('count', 1);
-            }
-        } else {
-            if ($isNewDate) {
-                $bot->db('stats_users')->insert([
-                    'date' => $date,
-                    'count' => 0,
-                ]);
+                $bot->db('stats_messages')->where('date', $date)->increment('count', 1);
             }
         }
 
-        $update = Update::get();
 
-        if (!$update) {
-            return;
+        // new users stats
+        if ($bot->config('statistics.users')) {
+            $isNewDate = $bot->db()->table('stats_users')->where('date', $date)->count() == 0;
+            if ($bot->user()->firstTime()) {
+                if ($isNewDate) {
+                    $bot->db('stats_users')->insert([
+                        'date' => $date,
+                        'count' => 1,
+                    ]);
+                } else {
+                    $bot->db('stats_users')->where('date', $date)->increment('count', 1);
+                }
+            } else {
+                if ($isNewDate) {
+                    $bot->db('stats_users')->insert([
+                        'date' => $date,
+                        'count' => 0,
+                    ]);
+                }
+            }
         }
 
-        $insert = [
-            'date' => time(),
-            'user_id' => $bot->update('*.from.id'),
-            'user' => $bot->update('*.from.first_name'),
-            'value' => json_encode($update->toArray(), JSON_UNESCAPED_UNICODE)
-        ];
+        // incoming update log
+        if ($bot->config('statistics.updates')) {
+            if (!Update::is()) {
+                return;
+            }
 
-        $bot->db('messages')->insert($insert);
+            $insert = [
+                'date' => time(),
+                'user_id' => $bot->update('*.from.id'),
+                'user' => $bot->update('*.from.first_name'),
+                'value' => json_encode(Update::toArray(), JSON_UNESCAPED_UNICODE)
+            ];
+
+            $bot->db('messages')->insert($insert);
+        }
     }
 }

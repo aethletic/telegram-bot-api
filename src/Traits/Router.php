@@ -5,6 +5,7 @@ namespace Telegram\Traits;
 use Telegram\Update;
 use Telegram\Modules\State;
 use Telegram\Modules\User;
+use Telegram\Modules\Statistics;
 use Telegram\Bot;
 
 /**
@@ -35,12 +36,24 @@ trait Router
 
     private $canContinueEvent = true;
 
+    /**
+     * Этот метод вызывается В НАЧАЛЕ выполнения метода RUN.
+     * Например, чтобы выполнить необходимые общие действия дял webhook и longpoll.
+     * 
+     * @return void
+     */
     private function beforeRun(): void
     {
         // code...
         // echo PHP_EOL . "BEFORE: " . $this->getExecutedTime() . PHP_EOL;
     }
 
+    /**
+     * Этот метод вызывается В КОНЦЕ выполнения метода RUN.
+     * Используется для того, чтобы не тормозить ответ.
+     * 
+     * @return void
+     */
     private function afterRun(): void
     {
         // Записываем входящий апдейт в лог файл
@@ -48,9 +61,14 @@ trait Router
             $this->log()->write(Update::toArray(), 'auto');
         }
 
+        // Обновляем последнее сообщение у юзера
         if ($this->config('user.enable')) {
             User::update(['last_message' => time()]);
         }
+
+        // Собираем статистику (сообщений, новые юзеры, апдейты)
+        // Здесь нет проверок, они в самом методе `collect`
+        Statistics::collect();
 
         // echo PHP_EOL . "AFTER: " . $this->getExecutedTime() . PHP_EOL;
     }
@@ -68,6 +86,7 @@ trait Router
         $this->beforeRun();
 
         if ($this->events === []) {
+            // Если не поймано никаких действий, то выолняем дефолтные события.
             $this->executeDefaultAnswers();
         } else {
             // Преобразумем многомерный массив во flatten и в цикле выполним события которые ранее валидировали в методе on()
