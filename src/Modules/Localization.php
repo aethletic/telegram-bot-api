@@ -16,13 +16,46 @@ class Localization
      * @param string $default
      * @return void
      */
-    public static function load(string $language, string $default = 'en')
+    public static function load(string $language, string $default = 'en', $path = null)
     {
-        $path = rtrim(Bot::getInstance()->config('localization.dir'), '\/');
+        $path = $path ?: rtrim(Bot::getInstance()->config('localization.dir'), '\/');
 
         if (!$path) {
             return;
         }
+
+        $file = "{$path}/{$language}.php";
+
+        self::$language = $language;
+        self::$default = $default;
+    
+        if (!file_exists($file)) {
+            
+            self::$language = $default;
+            $file = "{$path}/{$default}.php";
+            if (!file_exists($file)) {
+                return;
+            }
+        }
+
+        self::$data[self::$language] = require $file;
+    }
+
+    /**
+     * Дополняет локализацю для языка юзера, иначе вызывает дефолтынй язык. 
+     *
+     * @param string $path
+     * @param string $default Если null - будет использован дефолтный язык бота из конфига
+     * @return void
+     */
+    public static function merge(string $path = null, string $default = null)
+    {
+        if (!$path) {
+            return;
+        }
+
+        $language = self::$language;
+        $default = $default ?: self::$default;
 
         $file = "{$path}/{$language}.php";
 
@@ -36,9 +69,11 @@ class Localization
             }
         }
 
-        self::$default = $default;
+        if (!array_key_exists($language, self::$data)) {
+            self::$data[self::$language] = [];
+        }
 
-        self::$data[self::$language] = require $file;
+        self::$data[self::$language] = array_merge(self::$data[self::$language], require $file);
     }
 
     public static function get($key, $replace = null, $language = null)
