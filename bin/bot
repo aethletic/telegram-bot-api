@@ -10,8 +10,8 @@ require file_exists($autoload) ? $autoload : __DIR__ . '/../../../autoload.php';
 
 $cli = new Cli;
 
-$cli->out("{white}{bg:blue}+--------------------------+{reset}
-{white}{bg:blue}| PHP Telegram Bot API CLI |
+$cli->out("{cyan}+--------------------------+{reset}
+{cyan}| {white}PHP Telegram Bot API CLI{cyan} |
 +--------------------------+{reset}" . PHP_EOL);
 
 $basepath = __DIR__ . '/../';
@@ -22,11 +22,11 @@ $args = $cli->getArgs();
  * -h --help
  */
 if (array_key_exists('h', $args) || array_key_exists('help', $args)) {
-    $cli->out("Available commands:
-{light_cyan}--init <path>{reset}    - Create a Bot skeleton project structure (e.g. {yellow}vendor/bin/bot --init ./{reset});
-{light_cyan}--config <path>{reset}  - Create a Bot configuration file. (e.g. {yellow}vendor/bin/bot --config ./{reset});
+    $cli->out("{white}Available commands:{reset}\n
+    {light_cyan}--init <save_path>{reset}    - Create a Bot skeleton project structure (e.g. {white}\"vendor/bin/bot --init ./\"{reset});
+    {light_cyan}--config <save_path>{reset}  - Create a Bot configuration file. (e.g. {white}\"vendor/bin/bot --config ./\"{reset});
 
-{light_cyan}-h, --help{reset}       - List of available commands;{reset}" . PHP_EOL);
+    {light_cyan}-h, --help{reset}            - List of available commands;{reset}" . PHP_EOL);
 }
 
 /**
