@@ -1,0 +1,21 @@
+{
+    "name": "chipslays/bot",
+    "description": "Telegram Bot Skeleton.",
+    "keywords": ["telegram", "bot", "skeleton", "prject"],
+    "type": "project",
+    "require": {
+        "chipslays/telegram-bot-api": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "chipslays",
+            "email": "hello@chipslays.ru"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "app/controllers/"
+        ]
+    }
+}
