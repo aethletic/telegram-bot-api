@@ -1,39 +1,80 @@
 #!/usr/bin/env php
-<?php 
+<?php
 
 use Clify\Cli;
 
-require __DIR__ . '/../vendor/autoload.php';
+// FIXME: нужен тотальный рефактор этого файла
+
+$autoload = __DIR__ . '/../vendor/autoload.php';
+require file_exists($autoload) ? $autoload : __DIR__ . '/../../../autoload.php';
 
 $cli = new Cli;
 
-$cli->out("{cyan}----------------------------
-{cyan}| {light_cyan}PHP Telegram Bot API CLI {cyan}|
-----------------------------");
+$cli->out("{white}{bg:blue}+--------------------------+{reset}
+{white}{bg:blue}| PHP Telegram Bot API CLI |
++--------------------------+{reset}" . PHP_EOL);
 
-if (!file_exists(__FILE__ . '/../src/Bot.php')) {
-    $basepath = __FILE__ . '/../';
-} else {
-    $basepath = __FILE__ . '/../chipslays/telegram-bot-api/';
-}
-
-var_dump($basepath);
+$basepath = __DIR__ . '/../';
 
 $args = $cli->getArgs();
 
+/**
+ * -h --help
+ */
 if (array_key_exists('h', $args) || array_key_exists('help', $args)) {
-    $cli->out(PHP_EOL . "{cyan}General:{reset}
-> {light_cyan}init{reset}  - Create a Bot skeleton files structure.
-> {light_cyan}create:config{reset}  - Create a Bot configuration file.
+    $cli->out("Available commands:
+{light_cyan}--init <path>{reset}    - Create a Bot skeleton project structure (e.g. {yellow}vendor/bin/bot --init ./{reset});
+{light_cyan}--config <path>{reset}  - Create a Bot configuration file. (e.g. {yellow}vendor/bin/bot --config ./{reset});
 
-{cyan}Webhook:{reset}
-> {light_cyan}webhook:set{reset}    - Set a webhook for handle Telegram updates {yellow}(need a config file->bot.token){reset}.
-> {light_cyan}webhook:delete{reset} - Delete webhook handler {yellow}(need a config file->bot.token){reset}.
-> {light_cyan}webhook:info{reset}   - Get current webhook status {yellow}(need a config file->bot.token){reset}.
+{light_cyan}-h, --help{reset}       - List of available commands;{reset}" . PHP_EOL);
+}
 
-{cyan}Migrations:{reset}
-> {light_cyan}migration:up{reset}   - Create Bot tables in database {yellow}(need a config file->database.enable){reset}.
-> {light_cyan}migration:down{reset} - Drop Bot tables from database {yellow}(need a config file->database.enable){reset}.");
+/**
+ * --init <path>
+ */
+if (isset($args['init'])) { 
+    $path = realpath($args['init']);
 
-    exit;
+    if (!file_exists($path)) {
+        $cli->out("{red}Error: Init path not exists." . PHP_EOL);
+        die;
+    }
+
+    dir_copy($basepath . 'examples/skeleton', $path);
+    $cli->out('{green}✅ Project skeleton successfully created!' . PHP_EOL);
+    $cli->out('{light_cyan}💡 Please, install dependencies: {yellow}composer install{reset}' . PHP_EOL);
+}
+
+/**
+ * --config <path>
+ */
+if (isset($args['config'])) {
+    $path = realpath($args['config']);
+
+    if (!file_exists($path)) {
+        $cli->out("{light_red}Error: Config path not exists." . PHP_EOL);
+        die;
+    }
+
+    copy($basepath . 'examples/config.example.php', rtrim($path, '\/') . '/bot.config.php');
+    $cli->out('{green}✅ Config file `bot.config.php` successfully created!' . PHP_EOL);
+}
+
+function dir_copy($src, $dst)
+{
+    $dir = opendir($src);
+
+    @mkdir($dst);
+
+    while ($file = readdir($dir)) {
+        if (($file != '.') && ($file != '..')) {
+            if (is_dir($src . '/' . $file)) {
+                dir_copy($src . '/' . $file, $dst . '/' . $file);
+            } else {
+                copy($src . '/' . $file, $dst . '/' . $file);
+            }
+        }
+    }
+
+    closedir($dir);
 }
