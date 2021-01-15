@@ -53,5 +53,7 @@ $user = update()->get('message.from'); // update() вернет объект `Up
 
 Да, первое время, если вы не работали ранее с Bot API, то придется часто держать открытой [страницу с документацией](https://core.telegram.org/bots/api) и смотреть доступные параметры.
 
+> Библиотека создавалась для себя/своих нужд, поэтому как-то так.
+
 ## 🔑 License
 Released under the MIT public license. See the enclosed [**`LICENSE`**](https://github.com/aethletic/telegram-bot-api/blob/master/license) for details.
