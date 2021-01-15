@@ -11,6 +11,14 @@ $cli->out("{cyan}----------------------------
 {cyan}| {light_cyan}PHP Telegram Bot API CLI {cyan}|
 ----------------------------");
 
+if (!file_exists(__FILE__ . '/../src/Bot.php')) {
+    $basepath = __FILE__ . '/../';
+} else {
+    $basepath = __FILE__ . '/../chipslays/telegram-bot-api/';
+}
+
+var_dump($basepath);
+
 $args = $cli->getArgs();
 
 if (array_key_exists('h', $args) || array_key_exists('help', $args)) {
