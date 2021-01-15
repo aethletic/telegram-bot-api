@@ -15,6 +15,7 @@ $args = $cli->getArgs();
 
 if (array_key_exists('h', $args) || array_key_exists('help', $args)) {
     $cli->out(PHP_EOL . "{cyan}General:{reset}
+> {light_cyan}init{reset}  - Create a Bot skeleton files structure.
 > {light_cyan}create:config{reset}  - Create a Bot configuration file.
 
 {cyan}Webhook:{reset}
