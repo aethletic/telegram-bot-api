@@ -1,9 +1,6 @@
 <?php
 
-use Telegram\Support\Debug;  // TODO remove
-
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/../../vendor/autoload.php'; // TODO remove
 
 $config = [];
 foreach (glob(__DIR__ . '/config/*.php') as $file) {
@@ -12,7 +9,7 @@ foreach (glob(__DIR__ . '/config/*.php') as $file) {
 
 $bot = bot($config['bot']['token'], $config);
 
-$bot->webhook(Debug::MESSAGE);  // TODO remove
+$bot->webhook();
 
 foreach (glob(__DIR__ . '/app/keyboards/*.keyboard.php') as $keyboard) {
     keyboard_add(require $keyboard);
