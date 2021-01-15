@@ -460,14 +460,16 @@ class Bot extends Container
             $this->state = new State;
         }
 
-        if ($this->config('user.enable')) {
+        $userEnabled = $this->config('user.enable');
+        if ($userEnabled) {
             User::initialize();
             $this->user = new User;
         }
 
         // Локлизация
         $defaultLang = $this->config('localization.default_language', 'en');
-        $lang = Update::get('*.from.language_code', $defaultLang);
+
+        $lang = $userEnabled ? $this->user()->lang : Update::get('*.from.language_code', $defaultLang);
         Localization::load($lang, $defaultLang);
         $this->lang = new Localization;
 
