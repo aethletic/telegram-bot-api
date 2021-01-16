@@ -1,5 +1,7 @@
 <?php
 
+use Telegram\Update;
+
 require __DIR__ . '/vendor/autoload.php';
 
 $config = [];
@@ -10,6 +12,11 @@ foreach (glob(__DIR__ . '/config/*.php') as $file) {
 $bot = bot($config['bot']['token'], $config);
 
 $bot->webhook();
+
+if (!Update::is()) {
+    echo 'No have updates.';
+    return;
+}
 
 foreach (glob(__DIR__ . '/app/keyboards/*.keyboard.php') as $keyboard) {
     keyboard_add(require $keyboard);
