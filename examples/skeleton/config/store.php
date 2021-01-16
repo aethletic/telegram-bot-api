@@ -25,7 +25,7 @@ return [
          * @see https://www.php.net/manual/ru/book.memcached.php
          * @see https://github.com/phpredis/phpredis
          */
-        'driver' => 'database',
+        'driver' => 'file',
 
         /**
          * Параметры драйвера `file`.

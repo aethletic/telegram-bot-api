@@ -19,7 +19,7 @@ return [
          * Поддерживает: 
          * bool false - ничего не использовать (unsafe)
          * string "encode" - пережатая строка в base64 (unsafe)
-         * string "hash" - хеширование строки в md5 в базе данных, при получении - сверка (safe)
+         * WIP! string "hash" - хеширование строки в md5 в базе данных, при получении - сверка (safe)
          */
         'safe_callback' => 'encode',
     ],

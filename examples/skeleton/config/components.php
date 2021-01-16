@@ -9,9 +9,9 @@
 return [
     'components' => [
         /**
-         * Уникальный ключ компонента.
+         * Компонент для показа версии бота по команде /version
          */
-        'vendor.component' => [
+        'chipslays.version' => [
 
             /**
              * Включение/выключение компонента.
@@ -21,7 +21,7 @@ return [
             /**
              * Файл инициализации компонента (входная точка).
              */
-            'entrypoint' => __DIR__ . '/../app/components/chipslays/example/component.php',
+            'entrypoint' => __DIR__ . '/../app/components/chipslays/version/component.php',
         ],
 
         // ... так же подключаются остальные компоненты.

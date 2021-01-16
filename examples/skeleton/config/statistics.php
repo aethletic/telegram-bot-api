@@ -11,16 +11,16 @@ return [
         /**
          * Вести подсчет сообщений.
          */
-        'messages' => true,
+        'messages' => false,
 
         /**
          * Вести подсчет новых пользователей.
          */
-        'users' => true,
+        'users' => false,
 
         /**
          * Логировать в БД входящие обноления.
          */
-        'updates' => true,
+        'updates' => false,
     ],
 ];
