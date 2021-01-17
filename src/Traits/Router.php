@@ -214,6 +214,8 @@ trait Router
 
             $matches = [];
 
+            // $tmp = str_replace(' ', '\s', $value);
+
             if ($found == $value || preg_match_all('~^' . preg_replace('/{(.*?)}/', '(.*?)', $value) . '$~', $found, $matches)) {
                 $this->events[$sort][] = [
                     'value' => $value,

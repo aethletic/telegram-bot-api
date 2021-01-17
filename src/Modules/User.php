@@ -147,7 +147,7 @@ class User
         return self::$firstTime;
     }
 
-    public static function newVerison()
+    public static function newVersion()
     {
         return self::$newVersion;
     }
@@ -168,7 +168,11 @@ class User
 
     public static function save(): void
     {
-        self::update(self::$data);
+        $data = self::$data;
+
+        unset($data['id']);
+
+        self::update($data);
     }
 
     public static function get($key, $default = null)

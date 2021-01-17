@@ -33,7 +33,7 @@ class Bot extends Container
 
     /**
      * Секретный токен бота
-     * 
+     *
      * @var string
      */
     private $token;
@@ -41,7 +41,7 @@ class Bot extends Container
     /**
      * Полная конфигурация бота со всеми параметрами.
      * Можно скопировать в отдельный файл и подключать его вторым парамтром, как вариант.
-     * 
+     *
      * @var array
      */
     private $config = [
@@ -84,9 +84,9 @@ class Bot extends Container
 
             /**
              * Временная зона.
-             * 
+             *
              * bool false - Чтобы не использовать этот параметр
-             * 
+             *
              * @see https://www.php.net/manual/en/timezones.php
              */
             'timezone' => 'UTC',
@@ -102,7 +102,7 @@ class Bot extends Container
          */
         'telegram' => [
 
-            /** 
+            /**
              * Разметка текста по умолчанию.
              * Если нужно отправить сообщение с другой разметкой, используйте параметр:
              * $extra = ['parse_mode' => 'markdown']
@@ -112,9 +112,9 @@ class Bot extends Container
             /**
              * "Шифрование" параметра `callback_data` у inline-клавиатуры .
              * NOTE: не храните важные данные в этом параметре, т. к. его можно посмотреть на стороне юзера.
-             * safe_callback сделан для усложнения распознования, но не гарантирует 100% зашиты. 
-             * 
-             * Поддерживает: 
+             * safe_callback сделан для усложнения распознования, но не гарантирует 100% зашиты.
+             *
+             * Поддерживает:
              * bool false - ничего не использовать (unsafe)
              * string "encode" - пережатая строка в base64 (unsafe)
              * string "hash" - хеширование строки в md5 в базе данных, при получении - сверка (safe)
@@ -138,7 +138,7 @@ class Bot extends Container
 
         /**
          * Модуль User.
-         * 
+         *
          * Позволяет взаимодействовать с юзером.
          * Хранение данных, управление, бан, флуд и прочее.
          */
@@ -151,7 +151,7 @@ class Bot extends Container
 
             /**
              * Метод хранения данных.
-             * 
+             *
              * Поддерживает:
              * string "store" - хранение с помощью модуля Store.
              * string "database" - хранение в отдельной таблице (users) в базе данных.
@@ -166,10 +166,10 @@ class Bot extends Container
 
         /**
          * Модуль Database.
-         * 
+         *
          * Позволяет взаимодействовать с базой данных.
          * Используется библиотека от Laravel.
-         * 
+         *
          * @see https://laravel.com/docs/8.x/database
          */
         'database' => [
@@ -181,7 +181,7 @@ class Bot extends Container
 
             /**
              * Драйвер базы данных.
-             * 
+             *
              * Поддерживает:
              * string "sqlite"
              * string "mysql"
@@ -202,7 +202,7 @@ class Bot extends Container
 
         /**
          * Модуль Cache.
-         * 
+         *
          * Повзоляет взаимодействовать с Memcached и Redis.
          * Внимение, у вас должно быть установленно Memcached и/или Redis.
          */
@@ -219,7 +219,7 @@ class Bot extends Container
              * Поддерживает:
              * string "memcached"
              * string "redis"
-             * 
+             *
              * @see https://www.php.net/manual/ru/book.memcached.php
              * @see https://github.com/phpredis/phpredis
              */
@@ -238,8 +238,8 @@ class Bot extends Container
 
         /**
          * Модуль Store.
-         * 
-         * Позвоялет сохранять данные для последущего использования. 
+         *
+         * Позвоялет сохранять данные для последущего использования.
          * Все сохраненные данные сериализуются, поэтому пожно сохранить массивы и т. п.
          * Позволяет сохранять как глобно данные, так и данные привязанные к конкретному юзеру.
          */
@@ -257,7 +257,7 @@ class Bot extends Container
              * string "file" - хранение в файлах (не рекомендуется для высоконагруженных ботов, возможна потеря данных).
              * string "database" - хранение в отдельной таблице `store`.
              * bool false - хранение в оперативной памяти (подходит только для Longpoll).
-             * 
+             *
              * @see https://www.php.net/manual/ru/book.memcached.php
              * @see https://github.com/phpredis/phpredis
              */
@@ -277,9 +277,9 @@ class Bot extends Container
 
         /**
          * Модуль State.
-         * 
+         *
          * Позволяет задавать стейты для юзеров.
-         * С их помощью можно легко организовать цепочку диалога, например, форму сбора данных. 
+         * С их помощью можно легко организовать цепочку диалога, например, форму сбора данных.
          * Стейт позволяет хранить название стейта и данные.
          */
         'state' => [
@@ -332,8 +332,8 @@ class Bot extends Container
         ],
 
         /**
-         * Компоненты. 
-         * 
+         * Компоненты.
+         *
          * Позволяет внедрять/переиспользовать части кода как компоненты.
          * Соддержит массив с информацией о компонентах.
          */
@@ -359,7 +359,7 @@ class Bot extends Container
 
     /**
      * Обновление от Telegram
-     * 
+     *
      * @var Collection
      */
     private $update;
@@ -384,13 +384,13 @@ class Bot extends Container
 
     /**
      * Авторизация, установка конфигурации бота, подключение необходимых модулей.
-     * 
+     *
      * @param string $token
-     * @param array $config 
-     * @param boolean $migration Осторожно! True - накатить миграцию, False - откатить миграцию 
+     * @param array $config
+     * @param boolean $migration Осторожно! True - накатить таблицы в бд если не существуют
      * @return Bot
      */
-    public function auth(string $token = null, array $config = [], $migration = null)
+    public function auth(string $token = null, array $config = null, $migration = null)
     {
         if (!$token) {
             throw new \Exception("Missed requred parameter `token`");
@@ -399,7 +399,7 @@ class Bot extends Container
         $this->startTime = microtime(true);
 
         $this->token = $token;
-        $this->config = new Collection(array_merge($this->config, $config));
+        $this->config = new Collection(array_merge($this->config, (array) $config));
 
         $this->config('bot.token', $token);
 
@@ -409,8 +409,7 @@ class Bot extends Container
         $this->helper = new Helpers;
 
         if ($this->config('cache.enable')) {
-            Cache::initialize();
-            $this->cache = new Cache;
+            $this->cache = Cache::initialize();
         }
 
         if ($this->config('database.enable')) {
@@ -428,16 +427,47 @@ class Bot extends Container
 
         if ($migration === true) {
             Migration::up();
-        } elseif ($migration === false) {
-            Migration::down();
         }
 
         return $this;
     }
 
+    public function saveToCache(string $key, $obj)
+    {
+        $key = $key . $this->config('bot.token');
+
+        if ($this->config('cache.enable') && $this->config('cache.driver') == 'memcached') {
+            return $this->cache()->set($key, $obj);
+        }
+
+        return false;
+    }
+
+    public function loadFromCache(string $key)
+    {
+        $key = $key . $this->config('bot.token');
+
+        if ($this->config('cache.enable') && $this->config('cache.driver') == 'memcached') {
+            return $this->cache()->get($key);
+        }
+
+        return false;
+    }
+
+    public function clearCache(string $key)
+    {
+        $key = $key . $this->config('bot.token');
+
+        if ($this->config('cache.enable') && $this->config('cache.driver') == 'memcached') {
+            return $this->cache()->delete($key);
+        }
+
+        return false;
+    }
+
     /**
      * Пуллинг Webhook обновлений.
-     * 
+     *
      * @param string|array|null $update
      * @return Bot
      */
@@ -445,6 +475,10 @@ class Bot extends Container
     {
         Update::initialize();
         Update::set($update);
+
+        if (!Update::is()) {
+            return $this;
+        }
 
         $this->chatOrFromId = $this->update('*.chat.id', $this->update('*.from.id'));
 
@@ -505,7 +539,7 @@ class Bot extends Container
 
     /**
      * Вызвать функцию/метод.
-     * 
+     *
      * @param $func
      * @param array $args
      * @return mixed

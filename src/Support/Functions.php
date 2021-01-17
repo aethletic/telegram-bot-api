@@ -10,7 +10,7 @@ if (!function_exists('keyboard')) {
     /**
      * Если передать параметры будет вызван метод Keyboard::show().
      * Пустые параметры возвращают объект Keyboard.
-     * 
+     *
      * @param boolean $keyboard
      * @param boolean $oneTime
      * @param boolean $resize
@@ -64,13 +64,13 @@ if (!function_exists('bot')) {
     /**
      * Если передать параметры будет вызван метод Bot::auth().
      * Пустые параметры возвращают объект Bot.
-     * 
+     *
      * @param string|null $token
-     * @param array|null $config 
-     * @param boolean $migration Осторожно! True - накатить миграцию, False - откатить миграцию 
+     * @param array|null $config
+     * @param boolean $migration Осторожно! True - накатить миграцию, False - откатить миграцию
      * @return Bot
      */
-    function bot($token = null, $config = null, $migration = null)
+    function bot(string $token = null, array $config = null, bool $migration = null)
     {
         return $token === null && $config === null && $migration === null ? Bot::getInstance() : Bot::getInstance()->auth($token, $config, $migration);
     }

@@ -23,7 +23,7 @@ class Update
 
     /**
      * Инициализировать необходимые переменные.
-     * 
+     *
      * @return void
      */
     public static function initialize()
@@ -41,21 +41,23 @@ class Update
      *
      * @return void
      */
-    public static function set($update): void
+    public static function set($update = null): void
     {
         if ($update) {
             $update = is_array($update) ? $update : json_decode($update, true);
         } else {
             $input = file_get_contents('php://input');
-            $update = $input !== '' ? json_decode($input, true) : null;
+            $update = $input ? json_decode($input, true) : null;
         }
+
+
 
         self::$update = $update ? new Collection($update) : null;
     }
 
     /**
      * Получить значение из апдейта или получить объект обновления.
-     * 
+     *
      * @param string|null $keys
      * @param mixed $default
      * @return Collection|string|integer
@@ -77,7 +79,7 @@ class Update
 
     /**
      * Проверка наличия обновления.
-     * 
+     *
      * @return boolean
      */
     public static function is(): bool
@@ -89,7 +91,7 @@ class Update
      * Проверка наличия ключа (dot notation)
      *
      * @param int|string $key
-     * 
+     *
      * @return boolean
      */
     public static function has($key): bool
@@ -99,7 +101,7 @@ class Update
 
     /**
      * Алиас для Bot::on()
-     * 
+     *
      * @param string|array $data
      * @param $func Обработчик события, чтобы прервать цепочку выполнения, необходимо вернуть FALSE.
      * @param integer $sort Сортировка, чем меньше число, тем функция выполнится раньше.
@@ -113,7 +115,7 @@ class Update
     /**
      * Установить символы с которых сообщение будет считаться командой
      * По умолчанию ['/', '.', '!']
-     * 
+     *
      * @param array $tags
      * @return void
      */

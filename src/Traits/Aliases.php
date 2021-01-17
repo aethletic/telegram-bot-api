@@ -53,10 +53,10 @@ trait Aliases
     private $db;
 
     /**
-     * Конструктор клавиатуры. 
+     * Конструктор клавиатуры.
      * Пустой параметр возвращает объект Keyboard.
      * Автоматическое определение типа клавиатуры.
-     * 
+     *
      * @param boolean $keyboard
      * @param boolean $oneTime
      * @param boolean $resize
@@ -136,7 +136,7 @@ trait Aliases
 
     /**
      * Получить значение из апдейта или получить объект обновления
-     * 
+     *
      * @param string|null $keys
      * @param mixed $default
      * @return Collection|string|integer
@@ -148,7 +148,7 @@ trait Aliases
 
     /**
      * Получить значение из конфига или получить объект конфига
-     * 
+     *
      * @param string|null $keys
      * @param mixed $default
      * @return Collection|string|integer
@@ -156,5 +156,10 @@ trait Aliases
     public function config($keys = null, $default = null)
     {
         return $keys ? $this->config->get($keys, $default) : $this->config;
+    }
+
+    public function cache()
+    {
+        return $this->cache;
     }
 }
