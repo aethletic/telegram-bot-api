@@ -337,4 +337,18 @@ class Helpers
         }
         return $textParsed;
     }
+
+    public static function decodeInlineKeyboard($keyboard) 
+    {
+        foreach ($keyboard as &$item) {
+            $item = array_map(function ($value) {
+                if (isset($value['callback_data'])) {
+                    $value['callback_data'] = gzinflate(base64_decode($value['callback_data']));
+                }
+                return $value;
+            }, $item);
+        }
+
+        return $keyboard;
+    }
 }

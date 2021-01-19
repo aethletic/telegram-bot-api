@@ -41,7 +41,7 @@ trait Aliases
         return $this->say(print_r($text, true));
     }
 
-    public function notify($text, $showAlert = false, $extra = [])
+    public function notify($text = '', $showAlert = false, $extra = [])
     {
         return $this->request('answerCallbackQuery', $this->buildRequestParams([
             'callback_query_id' => $this->update('callback_query.id'),
