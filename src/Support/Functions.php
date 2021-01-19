@@ -135,7 +135,7 @@ if (!function_exists('notify')) {
      * @param array $extra
      * @return Collection
      */
-    function notify($text, $showAlert = false, $extra = [])
+    function notify($text = '', $showAlert = false, $extra = [])
     {
         return Bot::getInstance()->notify($text, $showAlert, $extra);
     }
