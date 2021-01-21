@@ -75,14 +75,20 @@ trait Aliases
         return !is_null($response) ? $response->get('ok') : false;
     }
 
-    public function saveFile($fileUrl, $savePath): string
+    public function getFileUrl($fileId) 
+    {
+        $response = $this->getFile($fileId);
+        return $response->get('ok') ? self::TELEGRAM_API_FILE . $this->config('bot.token') . '/' . $response->get('result.file_path') : null;
+    }
+
+    public function saveFile($fileUrl, $savePath = null): string
     {   
         $extension = '';
         if (strpos(basename($fileUrl), '.') !== false) {
             $filename = explode('.', basename($fileUrl));
             $extension = end($filename);
         }
-        
+
         $savePath = str_ireplace(['{ext}', '{extension}', '{file_ext}'], $extension, $savePath);
         $savePath = str_ireplace(['{base}', '{basename}', '{base_name}', '{name}'], basename($fileUrl), $savePath);
         $savePath = str_ireplace(['{time}'], time(), $savePath);
