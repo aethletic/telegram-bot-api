@@ -84,7 +84,7 @@ trait Router
         ksort($this->events);
 
         $this->beforeRun();
-
+        
         if ($this->events === []) {
             // Если не поймано никаких действий, то выолняем дефолтные события.
             $this->executeDefaultAnswers();
@@ -141,12 +141,35 @@ trait Router
 
     private function canContinueEvent(): bool
     {
-        if (!$this->canContinueEvent) {
+        if ($this->canContinueEvent === false) {
             $this->canContinueEvent = true;
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Продолжить выполнение если хотя бы один стейт совпадает
+     *
+     * @param string|array $states
+     * @return Bot
+     */
+    public function onState($states)
+    {
+        if ($this->canContinueEvent === false) {
+            return $this;
+        } 
+
+        foreach ((array) $states as $stateName) {
+            $this->canContinueEvent = State::$name == $stateName;
+
+            if ($this->canContinueEvent === true) {
+                break;
+            }
+        }
+        
+        return $this;
     }
 
     /**
@@ -159,7 +182,7 @@ trait Router
      */
     public function on($data, $func, $sort = null)
     {
-        /** Middlewares (inline), etc.. */
+        /** Middlewares (inline), states, etc.. */
         if (!$this->canContinueEvent()) {
             return $this;
         }
@@ -245,6 +268,12 @@ trait Router
         return $this;
     }
 
+    private function resetCanitunueEventAndReturnSelf()
+    {
+        $this->canContinueEvent = true;
+        return $this;
+    }
+
     /**
      * Обработка входящий текстовых сообщений и/или измененных текстовых сообщений
      *
@@ -257,7 +286,7 @@ trait Router
     public function onMessage($data, $func, $sort = null): \Telegram\Bot
     {
         if (!Update::isMessage() || Update::isCommand()) {
-            return $this;
+            return $this->resetCanitunueEventAndReturnSelf();
         }
 
         $data = array_map(function ($item) {
@@ -278,7 +307,7 @@ trait Router
     public function onEditedMessage($data, $func, $sort = null): \Telegram\Bot
     {
         if (!Update::isEditedMessage() || Update::isCommand()) {
-            return $this;
+            return $this->resetCanitunueEventAndReturnSelf();
         }
 
         $data = array_map(function ($item) {
@@ -300,7 +329,7 @@ trait Router
     public function onCommand($data, $func, $sort = null)
     {
         if (!Update::isCommand()) {
-            return $this;
+            return $this->resetCanitunueEventAndReturnSelf();
         }
 
         $data = array_map(function ($item) {
@@ -330,7 +359,7 @@ trait Router
     public function onCallback($data, $func, $sort = null)
     {
         if (!Update::isCallbackQuery()) {
-            return $this;
+            return $this->resetCanitunueEventAndReturnSelf();
         }
 
         $data = array_map(function ($item) {
@@ -351,7 +380,7 @@ trait Router
     public function onChannelPost($data, $func, $sort = null)
     {
         if (!Update::isChannelPost()) {
-            return $this;
+            return $this->resetCanitunueEventAndReturnSelf();
         }
 
         $data = array_map(function ($item) {
@@ -364,7 +393,7 @@ trait Router
     public function onEditChannelPost($data, $func, $sort = null)
     {
         if (!Update::isEditedChannelPost()) {
-            return $this;
+            return $this->resetCanitunueEventAndReturnSelf();
         }
 
         $data = array_map(function ($item) {
@@ -386,7 +415,7 @@ trait Router
     public function onInline($data, $func, $sort = null)
     {
         if (!Update::isInlineQuery()) {
-            return $this;
+            return $this->resetCanitunueEventAndReturnSelf();
         }
 
         $data = array_map(function ($item) {
@@ -451,29 +480,6 @@ trait Router
     public function addMiddleware(string $name, $func): void
     {
         $this->middlewares[$name] = $func;
-    }
-
-    /**
-     * Продолжить выполнение если хотя бы один стейт совпадает
-     *
-     * @param string|array $states
-     * @return Bot
-     */
-    public function onState($states)
-    {
-        if ($this->canContinueEvent === false) {
-            return $this;
-        }
-
-        foreach ((array) $states as $stateName) {
-            $this->canContinueEvent = State::$name == $stateName;
-
-            if ($this->canContinueEvent === true) {
-                break;
-            }
-        }
-
-        return $this;
     }
 
     /**

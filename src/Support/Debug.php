@@ -24,7 +24,7 @@ class Debug
                 "type": "private"
             },
             "date": 1605891721,
-            "text": "My name is Debil"
+            "text": "📚 Тесты"
         }
     }';
 
@@ -53,54 +53,81 @@ class Debug
     }';
 
     public const CALLBACK_QUERY = '{
-        "update_id": 31348350,
+        "update_id": 163399206,
         "callback_query": {
-            "id": "5881482190582191249",
+            "id": "1874464818486990916",
             "from": {
                 "id": 436432850,
                 "is_bot": false,
-                "first_name": "чипсы",
-                "last_name": "лейс",
+                "first_name": "чипсы лейс",
                 "username": "chipslays",
                 "language_code": "ru"
             },
             "message": {
-                "message_id": 44402,
+                "message_id": 1054,
                 "from": {
-                    "id": 1086711779,
+                    "id": 1453748835,
                     "is_bot": true,
-                    "first_name": "MyBot",
-                    "username": "MyTestBot"
+                    "first_name": "Тесты",
+                    "username": "FunnyTestsBot"
                 },
                 "chat": {
                     "id": 436432850,
-                    "first_name": "чипсы",
-                    "last_name": "лейс",
+                    "first_name": "чипсы лейс",
+                    "username": "chipslays",
                     "type": "private"
                 },
-                "date": 1605461755,
-                "text": "Какое-то сообщение...",
+                "date": 1611138080,
+                "edit_date": 1611138145,
+                "text": "Список всех доступных тестов (1/2):",
+                "entities": [
+                    {
+                        "offset": 0,
+                        "length": 35,
+                        "type": "bold"
+                    }
+                ],
                 "reply_markup": {
                     "inline_keyboard": [
                         [
                             {
-                                "text": "👨",
-                                "callback_data": "qwe1"
+                                "text": "1111?",
+                                "callback_data": "K0ktLokvzsgvj08sTqlKq6oAAA=="
+                            }
+                        ],
+                        [
+                            {
+                                "text": "2222?",
+                                "callback_data": "K0ktLokvzsgvj08sTitOTAMA"
+                            }
+                        ],
+                        [
+                            {
+                                "text": "3333?",
+                                "callback_data": "K0ktLokvzsgvjy9PLUwtBwA="
+                            }
+                        ],
+                        [
+                            {
+                                "text": "4444?",
+                                "callback_data": "K0ktLokvzsgvj6+oKquqACIA"
+                            }
+                        ],
+                        [
+                            {
+                                "text": "👈 Сюда",
+                                "callback_data": "K0ktLonPyQQSBvEGAA=="
                             },
                             {
-                                "text": "👩",
-                                "callback_data": "qwe2"
-                            },
-                            {
-                                "text": "👻",
-                                "callback_data": "qwe3"
+                                "text": "Туда 👉",
+                                "callback_data": "K0ktLonPyQQSBvGGAA=="
                             }
                         ]
                     ]
                 }
             },
-            "chat_instance": "642874091806719723",
-            "data": "y62ML05NLkotiS9LzClNjc8sjjc0NjYHAA=="
+            "chat_instance": "5665609217735090269",
+            "data": "test_list_0_1"
         }
     }';
 }
