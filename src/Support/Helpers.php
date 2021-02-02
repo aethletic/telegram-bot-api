@@ -351,4 +351,65 @@ class Helpers
 
         return $keyboard;
     }
+
+    /**
+     * WIP: Разбирает страницу t.me/username и возвращает массив с данными.
+     * @todo оптимизировать/доделать стикеры и темы
+     * @param string $url
+     * @return array
+     */
+    public static function fetch($url)
+    {
+        $result = [];
+        
+        $html = file_get_contents($url);
+        
+        preg_match('/<meta property="og:image" content="(.*?)">/', $html, $image);
+        preg_match('/<meta property="og:title" content="(.*?)">/', $html, $title);
+        preg_match('/<div class="tgme_page_description" dir="auto">(.*?)<\/div>/', $html, $description);
+        preg_match('/<div class="tgme_page_extra">(.*?)<\/div>/', $html, $membersInfo);
+        preg_match('/<title>Telegram: Contact @(.*?)<\/title>/', $html, $username);
+        preg_match('/<a class="tgme_action_button_new" href="(.*?)">/', $html, $action);
+        
+        $members = explode(',', $membersInfo[1] ?? null)[0];
+        $online = array_map('trim', explode(',', $membersInfo[1] ?? null))[1];
+        
+        $result['image'] = $image[1] ?? null;
+        $result['title'] = $title[1] ?? null;
+        $result['description'] = [
+            'clean' => strip_tags($description[1] ?? null),
+            'raw' => $description[1] ?? null,
+            'markup' => strip_tags(preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n", "", str_replace("\r", "", htmlspecialchars_decode($description[1] ?? null))))),
+        ];
+        $result['members'] = [
+            'clean' => (int) $members ?? null,
+            'raw' => $members,
+        ];
+        $result['online'] = [
+            'clean' => (int) $online ?? null,
+            'raw' => $online,
+        ];
+        $result['username'] = $username[1] ?? null;
+        $result['action'] = $action[1] ?? null;
+        $result['link'] = 'https://t.me/' . $username[1] ?? null;
+        
+        $result['type'] = null;
+        if (strpos($html, 'Send Message') !== false) {
+            $result['type'] = 'user';
+        }
+        if (strpos($html, 'Preview channel') !== false) {
+            $result['type'] = 'channel';
+        }
+        if (strpos($html, 'Join Group') !== false) {
+            $result['type'] = 'super_group';
+        }
+        if (strpos($html, 'View in Telegram') !== false && strpos($html, 'member') !== false && strpos($html, 'Preview channel') === false) {
+            $result['type'] = 'group';
+        }
+        if (strpos($html, 'Send Message') !== false && (strtolower(substr($result['username'], -4)) == "_bot" || strtolower(substr($result['username'], -3)) == "bot")) {
+            $result['type'] = 'bot';
+        }
+        
+        return $result;
+    }
 }
