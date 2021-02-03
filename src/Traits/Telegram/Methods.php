@@ -43,12 +43,12 @@ trait Methods
         ], null, $extra));
     }
 
-    public function sendChatAction($chatId, $action = 'typing', $extra = [])
+    public function sendChatAction($chatId, $action = 'typing')
     {
-        return $this->request('', $this->buildRequestParams([
+        return $this->request(__FUNCTION__, [
             'chat_id' => $chatId,
             'action' => $action,
-        ], null, $extra));
+        ]);
     }
 
     public function sendMessage($chatId, $text, $keyboard = null, $extra = [])
