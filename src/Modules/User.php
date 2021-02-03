@@ -53,6 +53,12 @@ class User
             self::$data = self::getById(self::$userId);
             self::diffBotVersion();
 
+            if (!self::$data['active']) {
+                self::update([
+                    'active' => 1,
+                ]);
+            }
+
             return;
         }
 
@@ -281,13 +287,14 @@ class User
 
     private static function diffBotVersion(): void
     {
-        $userVersion = self::get('version');
-        $currentVersion = self::$bot->config('bot.version');
+        $userVersion = (string) self::get('version');
+        $currentVersion = (string) self::$bot->config('bot.version');
 
-        self::$newVersion = $userVersion != $currentVersion;
+        self::$newVersion = $userVersion !== $currentVersion;
 
         if (self::$newVersion) {
             self::update(['version' => $currentVersion]);
+            self::$data['version'] = $currentVersion;
         }
     }
 
