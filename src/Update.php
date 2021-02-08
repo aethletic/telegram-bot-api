@@ -50,8 +50,6 @@ class Update
             $update = $input ? json_decode($input, true) : null;
         }
 
-
-
         self::$update = $update ? new Collection($update) : null;
     }
 
@@ -62,9 +60,9 @@ class Update
      * @param mixed $default
      * @return Collection|string|integer
      */
-    public static function get($keys = null, $default = null)
+    public static function get($key = null, $default = null)
     {
-        return $keys ? self::$update->get($keys, $default) : self::$update;
+        return $key ? self::$update->get($key, $default) : self::$update;
     }
 
     /**
@@ -694,6 +692,14 @@ class Update
     public static function getData()
     {
         return self::get('callback_query.data');
+    }
+
+    /**
+     * @return int|string
+     */
+    public static function getCallbackData()
+    {
+        return self::getData();
     }
 
     /**
