@@ -121,7 +121,7 @@ class Update
     }
 
     /**
-     * Установить символы с которых сообщение будет считаться командой
+     * Установить символы при которых сообщение будет считаться командой
      * По умолчанию ['/', '.', '!']
      *
      * @param array $tags
@@ -132,6 +132,11 @@ class Update
         self::$commandTags = $tags;
     }
 
+    /**
+     * Получить массив с символами при которых должна начинаться команда.
+     *
+     * @return array
+     */
     public static function getCommandTags()
     {
         return self::$commandTags;
