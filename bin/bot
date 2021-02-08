@@ -36,13 +36,13 @@ if (isset($args['init'])) {
     $path = realpath($args['init']);
 
     if (!file_exists($path)) {
-        $cli->out("{red}Error: Init path not exists." . PHP_EOL);
+        $cli->print("{red}Error: Init path not exists." . PHP_EOL);
         die;
     }
 
     dir_copy($basepath . 'examples/skeleton', $path);
-    $cli->out('{green}✅ Project skeleton successfully created!' . PHP_EOL);
-    $cli->out('{light_cyan}💡 Please, install dependencies: {yellow}composer install{reset}' . PHP_EOL);
+    $cli->print('{green}✅ Project skeleton successfully created!' . PHP_EOL);
+    $cli->print('{light_cyan}💡 Please, install dependencies: {yellow}composer install{reset}' . PHP_EOL);
 }
 
 /**
@@ -52,12 +52,12 @@ if (isset($args['config'])) {
     $path = realpath($args['config']);
 
     if (!file_exists($path)) {
-        $cli->out("{light_red}Error: Config path not exists." . PHP_EOL);
+        $cli->print("{light_red}Error: Config path not exists." . PHP_EOL);
         die;
     }
 
     copy($basepath . 'examples/config.example.php', rtrim($path, '\/') . '/bot.config.php');
-    $cli->out('{green}✅ Config file `bot.config.php` successfully created!' . PHP_EOL);
+    $cli->print('{green}✅ Config file `bot.config.php` successfully created!' . PHP_EOL);
 }
 
 function dir_copy($src, $dst)
