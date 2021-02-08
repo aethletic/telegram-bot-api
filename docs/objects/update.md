@@ -5,7 +5,7 @@
 Установить апдейт.
 
 ```php
-Telegram::set($update = null): void
+Update::set($update = null) : void
 ```
 
 ## get
