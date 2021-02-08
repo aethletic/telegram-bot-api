@@ -88,6 +88,16 @@ class Update
     }
 
     /**
+     * Проверка наличия обновления.
+     *
+     * @return boolean
+     */
+    public static function hasUpdate(): bool
+    {
+        return self::is();
+    }
+
+    /**
      * Проверка наличия ключа (dot notation)
      *
      * @param int|string $key
@@ -122,6 +132,11 @@ class Update
     public static function setCommandTags(array $tags)
     {
         self::$commandTags = $tags;
+    }
+
+    public static function getCommandTags()
+    {
+        return self::$commandTags;
     }
 
     public static function isMessage(): bool

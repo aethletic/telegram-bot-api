@@ -331,10 +331,18 @@ trait Router
         if (!Update::isCommand()) {
             return $this->resetCanitunueEventAndReturnSelf();
         }
-
+        
         $data = array_map(function ($item) {
-            return ['*.text' => $item];
+            if (in_array(mb_substr($item, 0, 1, 'utf-8'), Update::getCommandTags())) {
+                // передан текст на отлов как "/команда", "!команда"
+                return ['*.text' => $item];
+            } else {
+                // передан текст на отлов как "команда"
+                return ['*.text' => mb_substr(Update::getCommand(), 0, 1, 'utf-8') . $item];
+            }
         }, (array) $data);
+
+        print_r($data);
 
         return $this->on($data, $func, $sort);
     }
