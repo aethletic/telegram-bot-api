@@ -253,11 +253,11 @@ if (!function_exists('db')) {
     }
 }
 
-if (!function_exists('log')) {
+if (!function_exists('bot_log')) {
     /**
      * @return \Telegram\Modules\Log|void
      */
-    function log($data = false, $type = 'auto', $postfix = 'bot')
+    function bot_log($data = false, $type = 'auto', $postfix = 'bot')
     {
         return $data ? Bot::getInstance()->log()->write($data, $type, $postfix) : Bot::getInstance()->log();
     }

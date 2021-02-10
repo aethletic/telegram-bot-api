@@ -414,12 +414,36 @@ trait Methods
         ]);
     }
 
+    public function deleteStickerFromSet($sticker)
+    {
+        return $this->request(__FUNCTION__, [
+            'sticker' => $sticker,
+        ]);
+    }
+
     public function uploadStickerFile($userId, $pngSticker)
     {
         return $this->request(__FUNCTION__, [
             'user_id' => $userId,
             'png_sticker' => $pngSticker,
         ], true);
+    }
+
+    public function createNewStickerSet($userId, $name, $title, $extra = [])
+    {
+        return $this->request(__FUNCTION__, $this->buildRequestParams([
+            'user_id' => $userId,
+            'name' => $name,
+            'title' => $title,
+        ], null, $extra), isset($extra['tgs_sticker']));
+    }
+
+    public function addStickerToSet($userId, $name, $extra = [])
+    {
+        return $this->request(__FUNCTION__, $this->buildRequestParams([
+            'user_id' => $userId,
+            'name' => $name,
+        ], null, $extra), isset($extra['tgs_sticker']));
     }
 
     public function sendGame($chatId, $gameShortName, $keyboard = null, $extra = [])

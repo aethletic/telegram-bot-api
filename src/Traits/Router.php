@@ -155,8 +155,13 @@ trait Router
      * @param string|array $states
      * @return Bot
      */
-    public function onState($states)
+    public function onState($states, $stopWords = [])
     {
+        if ($stopWords !== [] && in_array(Update::getText(), $stopWords)) {
+            $this->canContinueEvent = false;
+            return $this;
+        }
+
         if ($this->canContinueEvent === false) {
             return $this;
         } 

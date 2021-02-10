@@ -58,6 +58,14 @@ trait Request
 
         $params['parse_mode'] = $this->config('telegram.parse_mode', 'html');
 
+        if (!empty($params['text'])) {
+            $params['text'] = implode("\n", array_map('trim', explode("\n", $params['text'])));
+        }
+
+        if (!empty($params['caption'])) {
+            $params['caption'] = implode("\n", array_map('trim', explode("\n", $params['caption'])));
+        }
+
         return array_merge($params, (array) $extra);
     }
 

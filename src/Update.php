@@ -50,6 +50,8 @@ class Update
             $update = $input ? json_decode($input, true) : null;
         }
 
+
+
         self::$update = $update ? new Collection($update) : null;
     }
 
@@ -60,9 +62,9 @@ class Update
      * @param mixed $default
      * @return Collection|string|integer
      */
-    public static function get($key = null, $default = null)
+    public static function get($keys = null, $default = null)
     {
-        return $key ? self::$update->get($key, $default) : self::$update;
+        return $keys ? self::$update->get($keys, $default) : self::$update;
     }
 
     /**
@@ -121,7 +123,7 @@ class Update
     }
 
     /**
-     * Установить символы при которых сообщение будет считаться командой
+     * Установить символы с которых сообщение будет считаться командой
      * По умолчанию ['/', '.', '!']
      *
      * @param array $tags
@@ -132,11 +134,6 @@ class Update
         self::$commandTags = $tags;
     }
 
-    /**
-     * Получить массив с символами при которых должна начинаться команда.
-     *
-     * @return array
-     */
     public static function getCommandTags()
     {
         return self::$commandTags;
@@ -697,14 +694,6 @@ class Update
     public static function getData()
     {
         return self::get('callback_query.data');
-    }
-
-    /**
-     * @return int|string
-     */
-    public static function getCallbackData()
-    {
-        return self::getData();
     }
 
     /**

@@ -81,8 +81,10 @@ trait Aliases
         return $response->get('ok') ? self::TELEGRAM_API_FILE . $this->config('bot.token') . '/' . $response->get('result.file_path') : null;
     }
 
-    public function saveFile($fileUrl, $savePath = null): string
+    public function saveFile($fileId, $savePath = null): string
     {   
+        $fileUrl = $this->getFileUrl($fileId);
+
         $extension = '';
         if (strpos(basename($fileUrl), '.') !== false) {
             $filename = explode('.', basename($fileUrl));
@@ -95,7 +97,7 @@ trait Aliases
         $savePath = str_ireplace(['{md5}'], md5(time() . mt_rand()), $savePath);
         $savePath = str_ireplace(['{rand}', '{random}', '{rand_name}', '{random_name}'], md5(time() . mt_rand()) . ".$extension", $savePath);
 
-        file_put_contents($savePath, file_get_contents($this->buildRequestFileUrl($fileUrl)));
+        file_put_contents($savePath, file_get_contents($fileUrl));
 
         return basename($savePath);
     }
@@ -129,5 +131,16 @@ trait Aliases
             $this->wait($delay);
         }
         return true;
+    }
+
+    public function editCallbackMessage(string $text, $keyboard = null, $extra = [])
+    {
+        return $this->editMessageText(
+            Update::get('callback_query.message.message_id'), 
+            Update::get('callback_query.from.id'), 
+            $text, 
+            $keyboard, 
+            $extra
+        );
     }
 }

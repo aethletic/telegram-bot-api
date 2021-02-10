@@ -158,7 +158,7 @@ class Helpers
      */
     public static function getRandomCode(int $lenght = 6, array $chars = null)
     {
-        $chars = !$chars ? array_merge(range('a', 'z'), range('A', 'Z'), range(0, 1)) : $chars;
+        $chars = $chars ?: array_merge(range('a', 'z'), range('A', 'Z'), range(0, 1));
 
         shuffle($chars);
 
@@ -205,7 +205,7 @@ class Helpers
      *
      * @param string $text
      * @param array $entities
-     * @return void
+     * @return string
      */
     public static function entitiesToHtml(string $text, array $entities)
     {
