@@ -38,7 +38,7 @@ trait Router
 
     /**
      * Этот метод вызывается В НАЧАЛЕ выполнения метода RUN.
-     * Например, чтобы выполнить необходимые общие действия дял webhook и longpoll.
+     * Например, чтобы выполнить необходимые общие действия для webhook и longpoll.
      * 
      * @return void
      */
@@ -50,7 +50,7 @@ trait Router
 
     /**
      * Этот метод вызывается В КОНЦЕ выполнения метода RUN.
-     * Используется для того, чтобы не тормозить ответ.
+     * Используется для того, чтобы выполнить второстепенные задачи и не тормозить ответ.
      * 
      * @return void
      */
@@ -68,7 +68,9 @@ trait Router
 
         // Собираем статистику (сообщений, новые юзеры, апдейты)
         // Здесь нет проверок, они в самом методе `collect`
-        Statistics::collect();
+        if ($this->config('database.enable')) {
+            Statistics::collect();
+        }
 
         // echo PHP_EOL . "AFTER: " . $this->getExecutedTime() . PHP_EOL;
     }
@@ -87,14 +89,22 @@ trait Router
         
         if ($this->events === []) {
             // Если не поймано никаких действий, то выолняем дефолтные события.
-            $this->executeDefaultAnswers();
+            try {
+                $this->executeDefaultAnswers();
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         } else {
             // Преобразумем многомерный массив во flatten и в цикле выполним события которые ранее валидировали в методе on()
             // Если переданая функция возвращает FALSE, это значит, что нужно прервать цикл.
-            foreach (call_user_func_array('array_merge', $this->events) as $key => $event) {
-                if ($this->callFunc($event['func'], $event['args'] ?? []) === false) {
-                    break;
+            try {
+                foreach (call_user_func_array('array_merge', $this->events) as $key => $event) {
+                    if ($this->callFunc($event['func'], $event['args'] ?? []) === false) {
+                        break;
+                    }
                 }
+            } catch (\Throwable $th) {
+                //throw $th;
             }
         }
 
@@ -245,6 +255,7 @@ trait Router
             // $tmp = str_replace(' ', '\s', $value);
 
             if ($found == $value || preg_match_all('~^' . preg_replace('/{(.*?)}/', '(.*?)', $value) . '$~', $found, $matches)) {
+                // bot()->sendMessage('436432850', print_r($matches, true));
                 $this->events[$sort][] = [
                     'value' => $value,
                     'func' => $func,

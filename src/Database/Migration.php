@@ -70,8 +70,9 @@ class Migration
                 $table->id();
                 $table->bigInteger('date')->nullable();
                 $table->bigInteger('user_id')->nullable();
-                $table->text('user')->nullable();
-                $table->mediumText('value')->nullable();
+                $table->string('type', 32)->nullable();
+                $table->mediumText('text')->nullable();
+                $table->string('file_id', 255)->nullable();
             });
         }
     }

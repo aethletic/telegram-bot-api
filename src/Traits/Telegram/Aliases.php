@@ -38,7 +38,7 @@ trait Aliases
 
     public function print($text)
     {
-        return $this->say(print_r($text, true));
+        return $this->say(print_r($text, true), null, ['no_formating' => true]);
     }
 
     public function notify($text = '', $showAlert = false, $extra = [])

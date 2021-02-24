@@ -336,7 +336,7 @@ class Update
 
     public static function isAnimation(): bool
     {
-        return self::has('*.animation');
+        return self::has('*.animation') == true;
     }
 
     /**
@@ -349,7 +349,7 @@ class Update
 
     public static function isDocument(): bool
     {
-        return self::has('*.document');
+        return self::has('*.document') && !self::has('*.animation');
     }
 
     /**
