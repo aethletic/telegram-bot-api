@@ -1,8 +1,8 @@
 <?php
 
-namespace Telegram\Support;
+namespace Telegram\Debug;
 
-class Debug
+class Update
 {
     public const MESSAGE = '{
         "update_id": 31348350,
@@ -24,7 +24,7 @@ class Debug
                 "type": "private"
             },
             "date": 1605891721,
-            "text": "📚 Тесты"
+            "text": "/ban user"
         }
     }';
 

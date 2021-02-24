@@ -254,8 +254,23 @@ trait Router
 
             // $tmp = str_replace(' ', '\s', $value);
 
-            if ($found == $value || preg_match_all('~^' . preg_replace('/{(.*?)}/', '(.*?)', $value) . '$~', $found, $matches)) {
-                // bot()->sendMessage('436432850', print_r($matches, true));
+            if ($found == $value) {
+                $this->events[$sort][] = [
+                    'value' => $value,
+                    'func' => $func,
+                ];
+                break;
+            }
+
+            /**
+             * ['key' => 'my name is {name}']
+             * 
+             * command(?: (.*?))?(?: (.*?))?$
+             */
+            $value = preg_replace('~.?{(.*?)\?}~', '(?: (.*?))?', $value);
+            $pattern = '~^' . preg_replace('/{(.*?)}/', '(.*?)', $value) . '$~';
+
+            if (@preg_match_all($pattern, $found, $matches)) {
                 $this->events[$sort][] = [
                     'value' => $value,
                     'func' => $func,
@@ -357,8 +372,6 @@ trait Router
                 return ['*.text' => mb_substr(Update::getCommand(), 0, 1, 'utf-8') . $item];
             }
         }, (array) $data);
-
-        print_r($data);
 
         return $this->on($data, $func, $sort);
     }
