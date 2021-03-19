@@ -2,6 +2,12 @@
 
 <p align="center">Простая и гибкая библиотека для создания ботов <a href="https://telegram.org/">Telegram</a> на языке PHP.</p>
 
+## ⚠ Проект переехал [сюда](https://github.com/chipslays/litegram)
+
+## ⚠ Проект переехал [сюда](https://github.com/chipslays/litegram)
+
+## ⚠ Проект переехал [сюда](https://github.com/chipslays/litegram)
+
 ## 👷 Установка
 
 ```bash
